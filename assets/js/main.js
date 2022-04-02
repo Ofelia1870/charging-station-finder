@@ -1,4 +1,3 @@
-function example() {
-	a = "test";
-	return a;
-}
+//pre-load city coordinates
+let cityData = require("./cities.json");
+console.log(cityData);
