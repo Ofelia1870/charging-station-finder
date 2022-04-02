@@ -1,3 +1,8 @@
 //pre-load city coordinates
-let cityData = require("./cities.json");
-console.log(cityData);
+const cityData = fetch("./assets/js/cities.json")
+	.then((response) => {
+		return response.json();
+	})
+	.then((data) => {
+		console.log(data);
+	});
