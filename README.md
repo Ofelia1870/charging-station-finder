@@ -4,4 +4,4 @@
 
 ## Table of Contents
 
-I enjoy JavaScript because it utilizes both Functional programming and Object-oriented programming.
+1. I'm here to fix bugs; give them a second chance in this crazy world...
