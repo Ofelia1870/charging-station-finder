@@ -39,6 +39,7 @@ function findCityMatch() {
 	if (cityMatch && stateMatch) {
 		return console.log(
 			"Found a match!",
+			getData.indexOf(cityMatch),
 			cityMatch.city,
 			stateMatch.state,
 			"\n",
