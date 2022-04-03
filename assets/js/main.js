@@ -1,9 +1,9 @@
 //Define Global properties
 
-//pre-load city coordinates
 let jsonData;
 let userInputGeoId;
 
+//pre-load city coordinates
 function loadGeoData() {
 	fetch("./assets/js/cities.json")
 		.then((response) => {
@@ -52,7 +52,8 @@ function findCityMatch() {
 	}
 }
 
-async function findCityCoordinates() {
+//Find and return an array that holds city coordinates
+function findCityCoordinates() {
 	let coordinates = [];
 	coordinates.push(jsonData[userInputGeoId].latitude);
 	coordinates.push(jsonData[userInputGeoId].longitude);
@@ -68,6 +69,7 @@ async function findCityCoordinates() {
 	return coordinates;
 }
 
+//Init the app
 function initApp() {
 	loadGeoData();
 	//Timeout required. Otherwise it hits a race condition
