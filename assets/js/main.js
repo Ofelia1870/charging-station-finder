@@ -1,5 +1,22 @@
-//Define Global properties
+//Additional functionality: PENDING REVIEW
+function loadMap() {
+	const lat = findCityCoordinates()[0];
+	const lon = findCityCoordinates()[1];
+	var map = L.map("map").setView([lat, lon], 13);
 
+	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		attribution:
+			'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+	}).addTo(map);
+
+	// show the scale bar on the lower left corner
+	L.control.scale({ imperial: true, metric: true }).addTo(map);
+
+	// show a marker on the map
+	L.marker({ lon: 0, lat: 0 }).bindPopup("The center of the world").addTo(map);
+}
+
+//Define Global properties
 let jsonData;
 let userInputGeoId;
 
@@ -76,6 +93,7 @@ function initApp() {
 	setTimeout(findCityMatch, 10);
 	getUserLocation();
 	setTimeout(findCityCoordinates, 10);
+	setTimeout(loadMap, 60);
 }
 
 initApp();
