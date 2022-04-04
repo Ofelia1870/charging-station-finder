@@ -1,6 +1,7 @@
 # Charging Station Finder
--View GitHub [Repo]
--View [Webpage]
+
+-View GitHub [Repo](https://github.com/Ofelia1870/charging-station-finder)
+-View [Webpage](https://ofelia1870.github.io/charging-station-finder/)
 
 ## Table of Contents
 
