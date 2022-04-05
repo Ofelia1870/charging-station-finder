@@ -18,7 +18,7 @@ function loadMap() {
 	// 	shadowUrl: "http://leafletjs.com/examples/custom-icons/leaf-shadow.png",
 	// });
 
-	var map = L.map("map").setView([lat, lon], 14);
+	var map = L.map("map").setView([lat, lon], 15);
 
 	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 		attribution:
@@ -35,12 +35,20 @@ function loadMap() {
 	L.marker([45.5152, -122.6784])
 		.bindPopup("The center of the world")
 		.addTo(map);
+
+	for (i in chargeMapPoi) {
+		L.marker([chargeMapPoi[i][0], chargeMapPoi[i][1]])
+			.bindPopup("The center of the world")
+			.addTo(map);
+		console.log(chargeMapPoi[i][0]);
+	}
 }
 
 //Define Global properties
 let jsonData;
 let userInputGeoId;
 let cityCoordinates = [];
+let chargeMapPoi = {};
 
 //pre-load city coordinates
 function loadGeoData() {
@@ -69,7 +77,14 @@ function getChargingStations(lat, lon, max = "5") {
 			return response.json();
 		})
 		.then((data) => {
-			console.log(data);
+			for (let i = 0; i < data.length; i++) {
+				console.log(data[i]);
+				chargeMapPoi[i] = [
+					data[i].AddressInfo.Latitude,
+					data[i].AddressInfo.Longitude,
+				];
+			}
+			// console.log(data, data.length);
 			// return data;
 		});
 }
@@ -125,7 +140,7 @@ function findCityCoordinates() {
 		"\n",
 		"============================================="
 	);
-	getChargingStations(coordinates[0], coordinates[1]);
+	getChargingStations(coordinates[0], coordinates[1], "20");
 	return coordinates;
 }
 
@@ -136,7 +151,7 @@ function initApp() {
 	setTimeout(findCityMatch, 90);
 	getUserLocation();
 	setTimeout(findCityCoordinates, 90);
-	setTimeout(loadMap, 90);
+	setTimeout(loadMap, 1200);
 }
 
 initApp();
