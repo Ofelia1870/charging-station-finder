@@ -40,16 +40,37 @@ function loadMap() {
 //Define Global properties
 let jsonData;
 let userInputGeoId;
+let cityCoordinates = [];
 
 //pre-load city coordinates
-async function loadGeoData() {
-	await fetch("./assets/js/cities.json")
+function loadGeoData() {
+	fetch("./assets/js/cities.json")
 		.then((response) => {
 			return response.json();
 		})
 		.then((data) => {
 			console.log(data);
 			return (jsonData = data);
+		});
+}
+
+//Open Charge Map Calls
+function getChargingStations(lat, lon, max = "5") {
+	console.log(lat, lon);
+	let poiCallUrl =
+		"https://api.openchargemap.io/v3/poi?key=>>>CHANGEME<<<&output=json&";
+	let maxResults = "maxresults=" + max + "&";
+	let latitude = "latitude=" + lat.toString() + "&";
+	let longitude = "longitude=" + lon.toString();
+	let requiredUrl = poiCallUrl + maxResults + latitude + longitude;
+	console.log(requiredUrl);
+	fetch(requiredUrl)
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			console.log(data);
+			// return data;
 		});
 }
 
@@ -104,6 +125,7 @@ function findCityCoordinates() {
 		"\n",
 		"============================================="
 	);
+	getChargingStations(coordinates[0], coordinates[1]);
 	return coordinates;
 }
 
@@ -111,10 +133,10 @@ function findCityCoordinates() {
 function initApp() {
 	loadGeoData();
 	//Timeout required. Otherwise it hits a race condition
-	setTimeout(findCityMatch, 10);
+	setTimeout(findCityMatch, 90);
 	getUserLocation();
-	setTimeout(findCityCoordinates, 10);
-	setTimeout(loadMap, 60);
+	setTimeout(findCityCoordinates, 90);
+	setTimeout(loadMap, 90);
 }
 
 initApp();
