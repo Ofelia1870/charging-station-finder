@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Google Icon Font-->
+
+    <script src="https://kit.fontawesome.com/62b4bdd09b.js" crossorigin="anonymous"></script>
+    <!--fontawesome.com-->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!--materialize.min.css, remote-->
+
+    <link rel="stylesheet" href="/assets/materialize/css/materialize.min.css" />
+    <!--local materialize.min.css, media="screen,projection"-->
+
+    <link rel="stylesheet" href="/assets/materialize/css/materialize.css" />
+    <!--local materialize.css, remove before published-->
+
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <!--local css stylesheet-->
+
     <title>Electric Vehicle Charging Station Finder</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>E-Fuel</h1>
+
+      <form>
+        <input id="location-search" class="" type="text" placeholder="City & State" />
+
+        <a class="waves-effect waves-light btn-small"
+          ><i class="material-icons right">search</i>search</a
+        >
+      </form>
+    </header>
+    <main>
+      <ul class="results">
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card">
+              <div class="card-content white-text">
+                <span class="card-title">Charging Station Name</span>
+                <address>Charging Station Address</address>
+              </div>
+              <div class="card-action">
+                <a href="#">This is a link</a>
+                <a href="#">This is a link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ul>
+
+      <section class="map-area">THIS IS AN INTERACTIVE MAP</section>
+    </main>
+    <script type="text/js" src="/assets/materialize/js/materialize.js"></script>
+    <script type="text/js" src="/assets/js/main.js"></script>
+  </body>
 </html>
