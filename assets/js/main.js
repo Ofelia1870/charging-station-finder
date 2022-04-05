@@ -2,7 +2,23 @@
 function loadMap() {
 	const lat = findCityCoordinates()[0];
 	const lon = findCityCoordinates()[1];
-	var map = L.map("map").setView([lat, lon], 13);
+
+	// var LeafIcon = L.Icon.extend({
+	// 	options: {
+	// 		iconSize: [38, 95],
+	// 		shadowSize: [50, 64],
+	// 		iconAnchor: [22, 94],
+	// 		shadowAnchor: [4, 62],
+	// 		popupAnchor: [-3, -76],
+	// 	},
+	// });
+
+	// var greenIcon = new LeafIcon({
+	// 	iconUrl: "http://leafletjs.com/examples/custom-icons/leaf-green.png",
+	// 	shadowUrl: "http://leafletjs.com/examples/custom-icons/leaf-shadow.png",
+	// });
+
+	var map = L.map("map").setView([lat, lon], 14);
 
 	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 		attribution:
@@ -13,7 +29,12 @@ function loadMap() {
 	L.control.scale({ imperial: true, metric: true }).addTo(map);
 
 	// show a marker on the map
-	L.marker({ lon: 0, lat: 0 }).bindPopup("The center of the world").addTo(map);
+	L.marker([47.6062095, -122.3320708])
+		.bindPopup("The center of the world")
+		.addTo(map);
+	L.marker([45.5152, -122.6784])
+		.bindPopup("The center of the world")
+		.addTo(map);
 }
 
 //Define Global properties
@@ -21,8 +42,8 @@ let jsonData;
 let userInputGeoId;
 
 //pre-load city coordinates
-function loadGeoData() {
-	fetch("./assets/js/cities.json")
+async function loadGeoData() {
+	await fetch("./assets/js/cities.json")
 		.then((response) => {
 			return response.json();
 		})
