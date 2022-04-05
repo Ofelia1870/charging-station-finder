@@ -2,6 +2,7 @@
 
 let jsonData;
 let userInputGeoId;
+let autoComplete = {};
 
 //pre-load city coordinates
 function loadGeoData() {
@@ -11,7 +12,10 @@ function loadGeoData() {
 		})
 		.then((data) => {
 			console.log(data);
-			return (jsonData = data);
+			for (let i = 0; i < data.length; i++) {
+				autoComplete[`${data[i].city}, ${data[i].state}`] = null;
+			}
+			jsonData = data;
 		});
 }
 
@@ -69,13 +73,25 @@ function findCityCoordinates() {
 	return coordinates;
 }
 
+function getAutoComplete() {
+	document.addEventListener("DOMContentLoaded", function () {
+		const inputField = document.querySelectorAll(".autocomplete");
+		M.Autocomplete.init(inputField, {
+			data: autoComplete,
+			limit: 5,
+			minLength: 2,
+		});
+	});
+}
+
 //Init the app
 function initApp() {
 	loadGeoData();
 	//Timeout required. Otherwise it hits a race condition
-	setTimeout(findCityMatch, 10);
+	setTimeout(findCityMatch, 90);
 	getUserLocation();
-	setTimeout(findCityCoordinates, 10);
+	setTimeout(findCityCoordinates, 90);
+	getAutoComplete();
 }
 
 initApp();
