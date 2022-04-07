@@ -2,13 +2,62 @@
 
 let jsonData;
 let userInputGeoId;
+let cityCoordinates = [];
 let autoComplete = {};
-let jsonCityString = JSON.string;
-let userInputText = "";
+let chargeMapPoi = {};
+
+//Event Listeners
+const userInputEl = document.getElementById("autocomplete-input");
+const userButtonEl = document.getElementById("search-btn");
+userButtonEl.addEventListener("click", captureUserInput);
+
+function captureUserInput(event) {
+  const mapEl = document.getElementById("map");
+  mapEl.removeAttribute("id");
+  const mapContainer = document.getElementById("leaflet");
+  mapDiv = document.createElement("div");
+  mapDiv.setAttribute("id", "map");
+  mapContainer.appendChild(mapDiv);
+  const userInput = event.target;
+  const inputVal = userInputEl.value;
+  if (!inputVal || inputVal < 3) {
+    return;
+  } else {
+    const inputMatch = inputVal.split(",");
+    console.log(inputMatch);
+    findCityMatch(inputMatch[0], inputMatch[1]);
+    setTimeout(loadMap, 2000);
+  }
+}
+
+function loadMap() {
+  const lat = findCityCoordinates()[0];
+  const lon = findCityCoordinates()[1];
+
+  let map = L.map("map").setView([lat, lon], 15);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+  }).addTo(map);
+
+  // show the scale bar on the lower left corner
+  L.control.scale({ imperial: true, metric: true }).addTo(map);
+
+  for (i in chargeMapPoi) {
+    L.marker([
+      chargeMapPoi[i].AddressInfo.Latitude,
+      chargeMapPoi[i].AddressInfo.Longitude,
+    ])
+      .bindPopup(chargeMapPoi[i].AddressInfo.Title)
+      .addTo(map);
+    console.log(chargeMapPoi[i].AddressInfo.Latitude);
+  }
+}
 
 //pre-load city coordinates
 function loadGeoData() {
-  fetch("assets/js/cities.json")
+  fetch("./assets/js/cities.json")
     .then((response) => {
       return response.json();
     })
@@ -18,6 +67,25 @@ function loadGeoData() {
         autoComplete[`${data[i].city}, ${data[i].state}`] = null;
       }
       jsonData = data;
+      getUserLocation();
+    });
+}
+
+//Open Charge Map Calls
+function getChargingStations(lat, lon, max = "5") {
+  console.log(lat, lon);
+  let poiCallUrl = "https://api.openchargemap.io/v3/poi?key=mykey&output=json&";
+  let maxResults = "maxresults=" + max + "&";
+  let latitude = "latitude=" + lat.toString() + "&";
+  let longitude = "longitude=" + lon.toString();
+  let requiredUrl = poiCallUrl + maxResults + latitude + longitude;
+  console.log(requiredUrl);
+  fetch(requiredUrl)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      chargeMapPoi = data;
     });
 }
 
@@ -25,49 +93,41 @@ function loadGeoData() {
 function getUserLocation() {
   const geoLocation = fetch("https://ipapi.co/json")
     .then((response) => {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      } else {
+        findCityMatch();
+      }
     })
     .then((data) => {
+      findCityMatch(data.city);
+
       console.log(
         "Your current location is",
         data.city,
         "\n",
         "*******************************"
       );
-      return data.city;
+    })
+    .catch((error) => {
+      findCityMatch();
     });
 }
 
 //Find a match for City && State. NOTE: ADD 2 ARGS FOR EVENT LISTENERS
-
-//ADDED EVENT HANDLER
-
-const searchBtn = document.getElementById("data-city-state-results");
-
-const userInputTextEl = document.getElementById("charging-station-city-search");
-
-searchBtn.addEventListener("click", captureLocationResults);
-function captureLocationResults(event) {
-  let captureEvents = event.target;
-  for (i = 0; i < jsonData.length; i++) {
-    if ((userInputText = jsonData[i])) {
-      console.log(jsonData[i].city.lenght < 3);
-    }
-    return console.log(userInputText);
-  }
-}
-
-function findCityMatch() {
-  let cityMatch = jsonData.find((cityId) => cityId.city === "Seattle"); // CHANGE ME || when we have event listeners ready
-  let stateMatch = jsonData.find((stateId) => stateId.state === "Washington"); // CHANGE ME || when we have event listeners ready
+function findCityMatch(city = "Portland", state = "Oregon") {
+  // console.log(city);
+  let cityMatch = jsonData.find((cityId) => cityId.city === city);
+  let stateMatch = jsonData.find((stateId) => stateId.state === state);
 
   if (cityMatch || (cityMatch && stateMatch)) {
     userInputGeoId = jsonData.indexOf(cityMatch);
+    findCityCoordinates();
     return console.log(
       "Found a match!",
       jsonData.indexOf(cityMatch),
       cityMatch.city,
-      stateMatch.state,
+      // stateMatch.state,
       "\n",
       "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     );
@@ -91,28 +151,26 @@ function findCityCoordinates() {
     "\n",
     "============================================="
   );
+  getChargingStations(coordinates[0], coordinates[1], "6");
   return coordinates;
 }
 
-// function getAutoComplete() {
-//   document.addEventListener("DOMContentLoaded", function () {
-//     const inputField = document.querySelectorAll(".autocomplete");
-//     M.Autocomplete.init(inputField, {
-//       data: autoComplete,
-//       limit: 5,
-//       minLength: 2,
-//     });
-//   });
-// }
+function getAutoComplete() {
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputField = document.querySelectorAll(".autocomplete");
+    M.Autocomplete.init(inputField, {
+      data: autoComplete,
+      limit: 5,
+      minLength: 3,
+    });
+  });
+}
 
 //Init the app
 function initApp() {
   loadGeoData();
-  //Timeout required. Otherwise it hits a race condition
-  setTimeout(findCityMatch, 90);
-  getUserLocation();
-  setTimeout(findCityCoordinates, 90);
-  //   getAutoComplete();
+  setTimeout(loadMap, 2000);
+  getAutoComplete();
 }
 
 initApp();
