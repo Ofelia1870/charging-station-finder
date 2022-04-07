@@ -12,12 +12,6 @@ const userButtonEl = document.getElementById("search-btn");
 userButtonEl.addEventListener("click", captureUserInput);
 
 function captureUserInput(event) {
-	const mapEl = document.getElementById("map");
-	mapEl.removeAttribute("id");
-	const mapContainer = document.getElementById("leaflet");
-	mapDiv = document.createElement("div");
-	mapDiv.setAttribute("id", "map");
-	mapContainer.appendChild(mapDiv);
 	const userInput = event.target;
 	const inputVal = userInputEl.value;
 	if (!inputVal || inputVal < 3) {
@@ -26,13 +20,20 @@ function captureUserInput(event) {
 		const inputMatch = inputVal.split(",");
 		console.log(inputMatch);
 		findCityMatch(inputMatch[0], inputMatch[1]);
-		setTimeout(loadMap, 2000);
+		// initApp();
 	}
 }
 
 function loadMap() {
-	const lat = findCityCoordinates()[0];
-	const lon = findCityCoordinates()[1];
+	const mapEl = document.getElementById("map");
+	mapEl.removeAttribute("id");
+	const mapContainer = document.getElementById("leaflet");
+	mapDiv = document.createElement("div");
+	mapDiv.setAttribute("id", "map");
+	mapContainer.appendChild(mapDiv);
+
+	const lat = cityCoordinates[0];
+	const lon = cityCoordinates[1];
 
 	let map = L.map("map").setView([lat, lon], 15);
 
@@ -53,6 +54,7 @@ function loadMap() {
 			.addTo(map);
 		console.log(chargeMapPoi[i].AddressInfo.Latitude);
 	}
+	cityCoordinates = [];
 }
 
 //pre-load city coordinates
@@ -86,6 +88,7 @@ function getChargingStations(lat, lon, max = "5") {
 		})
 		.then((data) => {
 			chargeMapPoi = data;
+			loadMap();
 		});
 }
 
@@ -138,20 +141,18 @@ function findCityMatch(city = "Portland", state = "Oregon") {
 
 //Find and return an array that holds city coordinates
 function findCityCoordinates() {
-	let coordinates = [];
-	coordinates.push(jsonData[userInputGeoId].latitude);
-	coordinates.push(jsonData[userInputGeoId].longitude);
+	cityCoordinates.push(jsonData[userInputGeoId].latitude);
+	cityCoordinates.push(jsonData[userInputGeoId].longitude);
 	console.log(
 		"Your city coordinates are: \n",
 		"Latitude:",
-		coordinates[0],
+		cityCoordinates[0],
 		"Longitude",
-		coordinates[1],
+		cityCoordinates[1],
 		"\n",
 		"============================================="
 	);
-	getChargingStations(coordinates[0], coordinates[1], "6");
-	return coordinates;
+	getChargingStations(cityCoordinates[0], cityCoordinates[1], "20");
 }
 
 function getAutoComplete() {
@@ -168,7 +169,6 @@ function getAutoComplete() {
 //Init the app
 function initApp() {
 	loadGeoData();
-	setTimeout(loadMap, 2000);
 	getAutoComplete();
 }
 
