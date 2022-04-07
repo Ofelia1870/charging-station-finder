@@ -5,7 +5,6 @@ let userInputGeoId;
 let cityCoordinates = [];
 let autoComplete = {};
 let chargeMapPoi = {};
-let newEl = {};
 
 //Event Listeners
 const userInputEl = document.getElementById("autocomplete-input");
@@ -13,6 +12,12 @@ const userButtonEl = document.getElementById("search-btn");
 userButtonEl.addEventListener("click", captureUserInput);
 
 function captureUserInput(event) {
+	const mapEl = document.getElementById("map");
+	mapEl.removeAttribute("id");
+	const mapContainer = document.getElementById("leaflet");
+	mapDiv = document.createElement("div");
+	mapDiv.setAttribute("id", "map");
+	mapContainer.appendChild(mapDiv);
 	const userInput = event.target;
 	const inputVal = userInputEl.value;
 	if (!inputVal || inputVal < 3) {
@@ -20,9 +25,8 @@ function captureUserInput(event) {
 	} else {
 		const inputMatch = inputVal.split(",");
 		console.log(inputMatch);
-		map.remove();
 		findCityMatch(inputMatch[0], inputMatch[1]);
-		setTimeout(loadMap, 2300);
+		setTimeout(loadMap, 2000);
 	}
 }
 
@@ -30,7 +34,7 @@ function loadMap() {
 	const lat = findCityCoordinates()[0];
 	const lon = findCityCoordinates()[1];
 
-	var map = L.map("map").setView([lat, lon], 15);
+	let map = L.map("map").setView([lat, lon], 15);
 
 	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 		attribution:
@@ -164,7 +168,7 @@ function getAutoComplete() {
 //Init the app
 function initApp() {
 	loadGeoData();
-	setTimeout(loadMap, 2300);
+	setTimeout(loadMap, 2000);
 	getAutoComplete();
 }
 
