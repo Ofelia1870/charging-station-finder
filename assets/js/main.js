@@ -169,12 +169,17 @@ function getAutoComplete() {
 function errorMessage() {
   let invalid = document.getElementById("invalidInput");
   const inputVal = userInputEl.value;
-  if (!inputVal || inputVal < 3)
+  if (!inputVal || inputVal < 3) {
     return (
       (invalid.textContent = "ERORR: Invalid City"),
       (invalid.style.color = "red"),
       (invalid.style.fontWeight = "bold")
     );
+  } else {
+    return (invalid.style.color = "white")(
+      (invalid.textContent = "City, State")
+    );
+  }
 }
 
 //Init the app
