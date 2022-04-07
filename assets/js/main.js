@@ -1,23 +1,40 @@
+//Define Global properties
+
+let jsonData;
+let userInputGeoId;
+let cityCoordinates = [];
+let autoComplete = {};
+let chargeMapPoi = {};
+
+//Event Listeners
+const userInputEl = document.getElementById("autocomplete-input");
+const userButtonEl = document.getElementById("search-btn");
+userButtonEl.addEventListener("click", captureUserInput);
+
+function captureUserInput(event) {
+	const mapEl = document.getElementById("map");
+	mapEl.removeAttribute("id");
+	const mapContainer = document.getElementById("leaflet");
+	mapDiv = document.createElement("div");
+	mapDiv.setAttribute("id", "map");
+	mapContainer.appendChild(mapDiv);
+	const userInput = event.target;
+	const inputVal = userInputEl.value;
+	if (!inputVal || inputVal < 3) {
+		return;
+	} else {
+		const inputMatch = inputVal.split(",");
+		console.log(inputMatch);
+		findCityMatch(inputMatch[0], inputMatch[1]);
+		setTimeout(loadMap, 2000);
+	}
+}
+
 function loadMap() {
 	const lat = findCityCoordinates()[0];
 	const lon = findCityCoordinates()[1];
 
-	// var LeafIcon = L.Icon.extend({
-	// 	options: {
-	// 		iconSize: [38, 95],
-	// 		shadowSize: [50, 64],
-	// 		iconAnchor: [22, 94],
-	// 		shadowAnchor: [4, 62],
-	// 		popupAnchor: [-3, -76],
-	// 	},
-	// });
-
-	// var greenIcon = new LeafIcon({
-	// 	iconUrl: "http://leafletjs.com/examples/custom-icons/leaf-green.png",
-	// 	shadowUrl: "http://leafletjs.com/examples/custom-icons/leaf-shadow.png",
-	// });
-
-	var map = L.map("map").setView([lat, lon], 15);
+	let map = L.map("map").setView([lat, lon], 15);
 
 	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 		attribution:
@@ -27,29 +44,16 @@ function loadMap() {
 	// show the scale bar on the lower left corner
 	L.control.scale({ imperial: true, metric: true }).addTo(map);
 
-	// show a marker on the map
-	L.marker([47.6062095, -122.3320708])
-		.bindPopup("The center of the world")
-		.addTo(map);
-	L.marker([45.5152, -122.6784])
-		.bindPopup("The center of the world")
-		.addTo(map);
-
 	for (i in chargeMapPoi) {
-		L.marker([chargeMapPoi[i][0], chargeMapPoi[i][1]])
-			.bindPopup("The center of the world")
+		L.marker([
+			chargeMapPoi[i].AddressInfo.Latitude,
+			chargeMapPoi[i].AddressInfo.Longitude,
+		])
+			.bindPopup(chargeMapPoi[i].AddressInfo.Title)
 			.addTo(map);
-		console.log(chargeMapPoi[i][0]);
+		console.log(chargeMapPoi[i].AddressInfo.Latitude);
 	}
 }
-
-//Define Global properties
-
-let jsonData;
-let userInputGeoId;
-let cityCoordinates = [];
-let autoComplete = {};
-let chargeMapPoi = {};
 
 //pre-load city coordinates
 function loadGeoData() {
@@ -63,14 +67,14 @@ function loadGeoData() {
 				autoComplete[`${data[i].city}, ${data[i].state}`] = null;
 			}
 			jsonData = data;
+			getUserLocation();
 		});
 }
 
 //Open Charge Map Calls
 function getChargingStations(lat, lon, max = "5") {
 	console.log(lat, lon);
-	let poiCallUrl =
-		"https://api.openchargemap.io/v3/poi?key=>>>CHANGEME<<<&output=json&";
+	let poiCallUrl = "https://api.openchargemap.io/v3/poi?key=mykey&output=json&";
 	let maxResults = "maxresults=" + max + "&";
 	let latitude = "latitude=" + lat.toString() + "&";
 	let longitude = "longitude=" + lon.toString();
@@ -81,15 +85,7 @@ function getChargingStations(lat, lon, max = "5") {
 			return response.json();
 		})
 		.then((data) => {
-			for (let i = 0; i < data.length; i++) {
-				console.log(data[i]);
-				chargeMapPoi[i] = [
-					data[i].AddressInfo.Latitude,
-					data[i].AddressInfo.Longitude,
-				];
-			}
-			// console.log(data, data.length);
-			// return data;
+			chargeMapPoi = data;
 		});
 }
 
@@ -97,31 +93,41 @@ function getChargingStations(lat, lon, max = "5") {
 function getUserLocation() {
 	const geoLocation = fetch("https://ipapi.co/json")
 		.then((response) => {
-			return response.json();
+			if (response.ok) {
+				return response.json();
+			} else {
+				findCityMatch();
+			}
 		})
 		.then((data) => {
+			findCityMatch(data.city);
+
 			console.log(
 				"Your current location is",
 				data.city,
 				"\n",
 				"*******************************"
 			);
-			return data.city;
+		})
+		.catch((error) => {
+			findCityMatch();
 		});
 }
 
 //Find a match for City && State. NOTE: ADD 2 ARGS FOR EVENT LISTENERS
-function findCityMatch() {
-	let cityMatch = jsonData.find((cityId) => cityId.city === "Seattle"); // CHANGE ME || when we have event listeners ready
-	let stateMatch = jsonData.find((stateId) => stateId.state === "Washington"); // CHANGE ME || when we have event listeners ready
+function findCityMatch(city = "Portland", state = "Oregon") {
+	// console.log(city);
+	let cityMatch = jsonData.find((cityId) => cityId.city === city);
+	let stateMatch = jsonData.find((stateId) => stateId.state === state);
 
-	if (cityMatch && stateMatch) {
+	if (cityMatch || (cityMatch && stateMatch)) {
 		userInputGeoId = jsonData.indexOf(cityMatch);
+		findCityCoordinates();
 		return console.log(
 			"Found a match!",
 			jsonData.indexOf(cityMatch),
 			cityMatch.city,
-			stateMatch.state,
+			// stateMatch.state,
 			"\n",
 			"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 		);
@@ -144,7 +150,7 @@ function findCityCoordinates() {
 		"\n",
 		"============================================="
 	);
-	getChargingStations(coordinates[0], coordinates[1], "20");
+	getChargingStations(coordinates[0], coordinates[1], "6");
 	return coordinates;
 }
 
@@ -162,12 +168,8 @@ function getAutoComplete() {
 //Init the app
 function initApp() {
 	loadGeoData();
-	//Timeout required. Otherwise it hits a race condition
-	setTimeout(findCityMatch, 90);
-	getUserLocation();
-	setTimeout(findCityCoordinates, 90);
+	setTimeout(loadMap, 2000);
 	getAutoComplete();
-	setTimeout(loadMap, 1200);
 }
 
 initApp();
