@@ -3,8 +3,8 @@
 let jsonData;
 let userInputGeoId;
 let autoComplete = {};
-let jsonCityString = JSON.str;
-let userInputTextEl = "";
+let jsonCityString = JSON.string;
+let userInputText = "";
 
 //pre-load city coordinates
 function loadGeoData() {
@@ -44,15 +44,24 @@ function getUserLocation() {
 
 //ADDED EVENT HANDLER
 
-let userInputText = "";
-
 const searchBtn = document.getElementById("data-city-state-results");
+
+const userInputTextEl = document.getElementById("charging-station-city-search");
+
+searchBtn.addEventListener("click", captureLocationResults);
+function captureLocationResults(event) {
+  let captureEvents = event.target;
+  //   if ((userInputText = jsonData[i])) {
+  for (i = 0; i < jsonData; i++) console.log(jsonData[i].city.lenght < 3);
+  console.log(jsonData[i]);
+  return console.log(userInputText);
+}
 
 function findCityMatch() {
   let cityMatch = jsonData.find((cityId) => cityId.city === "Seattle"); // CHANGE ME || when we have event listeners ready
   let stateMatch = jsonData.find((stateId) => stateId.state === "Washington"); // CHANGE ME || when we have event listeners ready
 
-  if (cityMatch && stateMatch) {
+  if (cityMatch || (cityMatch && stateMatch)) {
     userInputGeoId = jsonData.indexOf(cityMatch);
     return console.log(
       "Found a match!",
@@ -85,16 +94,16 @@ function findCityCoordinates() {
   return coordinates;
 }
 
-function getAutoComplete() {
-  document.addEventListener("DOMContentLoaded", function () {
-    const inputField = document.querySelectorAll(".autocomplete");
-    M.Autocomplete.init(inputField, {
-      data: autoComplete,
-      limit: 5,
-      minLength: 2,
-    });
+// function getAutoComplete() {
+document.addEventListener("DOMContentLoaded", function () {
+  const inputField = document.querySelectorAll(".autocomplete");
+  M.Autocomplete.init(inputField, {
+    data: autoComplete,
+    limit: 5,
+    minLength: 2,
   });
-}
+});
+// }
 
 //Init the app
 function initApp() {
