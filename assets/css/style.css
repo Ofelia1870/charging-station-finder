@@ -1,89 +1,22 @@
-body {
-  background-color: rgba(22, 44, 88, 0.1);
-}
-header {
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  background-color: rgba(22, 44, 88, 0.1);
+.main-content-wrapper {
+	display: flex;
+	height: 100vh;
+	width: 100%;
 }
 
-h1 {
-  color: rgba(22, 44, 88, 1);
-  font-weight: bolder;
-  margin: 20px 0 5px 0;
+.sidebar {
+	height: 100%;
+	width: 30%;
+	outline: solid black 2px;
 }
 
-form {
-  position: absolute;
-  right: 0;
-  top: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+.content-area {
+	height: 100%;
+	width: 70%;
+	outline: solid black 2px;
 }
 
-#location-search {
-  width: 50vw;
-  height: 35px;
-  background-color: white;
-  border-radius: 5px;
-  margin: 0 5px 0 0;
+#map {
+	height: inherit;
+	width: auto;
 }
-
-.material-icons {
-  float: inline-end;
-}
-
-.btn .waves-effect .waves-light {
-  display: flex;
-  justify-content: space-between;
-}
-
-main {
-  background-color: rgba(22, 44, 88, 0.2);
-}
-ul {
-  margin: 0;
-}
-.results {
-  float: left;
-  width: 35%;
-  background-color: rgba(22, 44, 88, 0.5);
-  padding: 20px;
-}
-
-.card {
-  background-color: rgba(22, 44, 88, 0.5);
-  width: 30vw;
-}
-
-.btn-small {
-  width: 12vw;
-  background-color: rgba(22, 44, 88, 1);
-  font-size: 12px;
-}
-
-.btn-small:hover {
-  background-color: rgba(22, 44, 88, 0.8);
-}
-
-.map-area {
-  float: right;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  width: 65%;
-  height: 300px;
-  background-color: rgba(22, 44, 88, 0.2);
-}
-
-/* NOTES 
-(remove before published)
-
-use css transition-scaling in and out elements
-
-    <script type="text/js" src="/assets/materialize/js/materialize.js"></script>
-    <script type="text/js" src="/assets/js/main.js"></script>
-*/
