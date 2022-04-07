@@ -166,6 +166,11 @@ function getAutoComplete() {
   });
 }
 
+function errorMessage() {
+	let error = document.getElementById("invalidInput")
+	if 
+}
+
 //Init the app
 function initApp() {
   loadGeoData();
