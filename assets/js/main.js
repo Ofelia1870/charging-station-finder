@@ -174,7 +174,7 @@ function errorMessage() {
   const inputVal = userInputEl.value;
   if (!inputVal || inputVal < 3) {
     return (
-      (invalid.textContent = "ERORR: Invalid City"),
+      (invalid.textContent = "ERROR: Invalid City"),
       (invalid.style.color = "red"),
       (invalid.style.fontWeight = "bold")
     );
