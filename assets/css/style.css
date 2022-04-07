@@ -1,0 +1,22 @@
+.main-content-wrapper {
+	display: flex;
+	height: 100vh;
+	width: 100%;
+}
+
+.sidebar {
+	height: 100%;
+	width: 30%;
+	outline: solid black 2px;
+}
+
+.content-area {
+	height: 100%;
+	width: 70%;
+	outline: solid black 2px;
+}
+
+#map {
+	height: inherit;
+	width: auto;
+}
