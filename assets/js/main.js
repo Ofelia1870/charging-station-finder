@@ -1,8 +1,55 @@
+function loadMap() {
+	const lat = findCityCoordinates()[0];
+	const lon = findCityCoordinates()[1];
+
+	// var LeafIcon = L.Icon.extend({
+	// 	options: {
+	// 		iconSize: [38, 95],
+	// 		shadowSize: [50, 64],
+	// 		iconAnchor: [22, 94],
+	// 		shadowAnchor: [4, 62],
+	// 		popupAnchor: [-3, -76],
+	// 	},
+	// });
+
+	// var greenIcon = new LeafIcon({
+	// 	iconUrl: "http://leafletjs.com/examples/custom-icons/leaf-green.png",
+	// 	shadowUrl: "http://leafletjs.com/examples/custom-icons/leaf-shadow.png",
+	// });
+
+	var map = L.map("map").setView([lat, lon], 15);
+
+	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		attribution:
+			'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+	}).addTo(map);
+
+	// show the scale bar on the lower left corner
+	L.control.scale({ imperial: true, metric: true }).addTo(map);
+
+	// show a marker on the map
+	L.marker([47.6062095, -122.3320708])
+		.bindPopup("The center of the world")
+		.addTo(map);
+	L.marker([45.5152, -122.6784])
+		.bindPopup("The center of the world")
+		.addTo(map);
+
+	for (i in chargeMapPoi) {
+		L.marker([chargeMapPoi[i][0], chargeMapPoi[i][1]])
+			.bindPopup("The center of the world")
+			.addTo(map);
+		console.log(chargeMapPoi[i][0]);
+	}
+}
+
 //Define Global properties
 
 let jsonData;
 let userInputGeoId;
+let cityCoordinates = [];
 let autoComplete = {};
+let chargeMapPoi = {};
 
 //pre-load city coordinates
 function loadGeoData() {
@@ -16,6 +63,33 @@ function loadGeoData() {
 				autoComplete[`${data[i].city}, ${data[i].state}`] = null;
 			}
 			jsonData = data;
+		});
+}
+
+//Open Charge Map Calls
+function getChargingStations(lat, lon, max = "5") {
+	console.log(lat, lon);
+	let poiCallUrl =
+		"https://api.openchargemap.io/v3/poi?key=>>>CHANGEME<<<&output=json&";
+	let maxResults = "maxresults=" + max + "&";
+	let latitude = "latitude=" + lat.toString() + "&";
+	let longitude = "longitude=" + lon.toString();
+	let requiredUrl = poiCallUrl + maxResults + latitude + longitude;
+	console.log(requiredUrl);
+	fetch(requiredUrl)
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			for (let i = 0; i < data.length; i++) {
+				console.log(data[i]);
+				chargeMapPoi[i] = [
+					data[i].AddressInfo.Latitude,
+					data[i].AddressInfo.Longitude,
+				];
+			}
+			// console.log(data, data.length);
+			// return data;
 		});
 }
 
@@ -70,6 +144,7 @@ function findCityCoordinates() {
 		"\n",
 		"============================================="
 	);
+	getChargingStations(coordinates[0], coordinates[1], "20");
 	return coordinates;
 }
 
@@ -79,7 +154,7 @@ function getAutoComplete() {
 		M.Autocomplete.init(inputField, {
 			data: autoComplete,
 			limit: 5,
-			minLength: 2,
+			minLength: 3,
 		});
 	});
 }
@@ -92,6 +167,7 @@ function initApp() {
 	getUserLocation();
 	setTimeout(findCityCoordinates, 90);
 	getAutoComplete();
+	setTimeout(loadMap, 1200);
 }
 
 initApp();
