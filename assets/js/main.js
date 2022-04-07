@@ -8,9 +8,7 @@ let userInputText = "";
 
 //pre-load city coordinates
 function loadGeoData() {
-  fetch(
-    "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json"
-  )
+  fetch("assets/js/cities.json")
     .then((response) => {
       return response.json();
     })
@@ -51,10 +49,12 @@ const userInputTextEl = document.getElementById("charging-station-city-search");
 searchBtn.addEventListener("click", captureLocationResults);
 function captureLocationResults(event) {
   let captureEvents = event.target;
-  //   if ((userInputText = jsonData[i])) {
-  for (i = 0; i < jsonData; i++) console.log(jsonData[i].city.lenght < 3);
-  console.log(jsonData[i]);
-  return console.log(userInputText);
+  for (i = 0; i < jsonData.length; i++) {
+    if ((userInputText = jsonData[i])) {
+      console.log(jsonData[i].city.lenght < 3);
+    }
+    return console.log(userInputText);
+  }
 }
 
 function findCityMatch() {
@@ -95,14 +95,14 @@ function findCityCoordinates() {
 }
 
 // function getAutoComplete() {
-document.addEventListener("DOMContentLoaded", function () {
-  const inputField = document.querySelectorAll(".autocomplete");
-  M.Autocomplete.init(inputField, {
-    data: autoComplete,
-    limit: 5,
-    minLength: 2,
-  });
-});
+//   document.addEventListener("DOMContentLoaded", function () {
+//     const inputField = document.querySelectorAll(".autocomplete");
+//     M.Autocomplete.init(inputField, {
+//       data: autoComplete,
+//       limit: 5,
+//       minLength: 2,
+//     });
+//   });
 // }
 
 //Init the app
@@ -112,7 +112,7 @@ function initApp() {
   setTimeout(findCityMatch, 90);
   getUserLocation();
   setTimeout(findCityCoordinates, 90);
-  getAutoComplete();
+  //   getAutoComplete();
 }
 
 initApp();
