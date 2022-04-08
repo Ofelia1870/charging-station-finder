@@ -181,24 +181,6 @@ function getAutoComplete() {
   });
 }
 
-//Added function to start event when search icon is clicked to display error message (which is linked to onclick in HTML)
-//NOTE: For some reason I'm not able to get it to display when less than 3 letters are input
-// function errorMessage() {
-//   let invalid = document.getElementById("invalidInput");
-//   const inputVal = userInputEl.value;
-//   if (!inputVal || inputVal < 3) {
-//     return (
-//       (invalid.textContent = "ERROR: Invalid City"),
-//       (invalid.style.color = "red"),
-//       (invalid.style.fontWeight = "bold")
-//     );
-//   } else {
-//     return (invalid.style.color = "white")(
-//       (invalid.textContent = "City, State")
-//     );
-//   }
-// }
-
 //Added Event Listener for Displaying Error Message with Invalid Text
 userButtonEl.addEventListener("click", captureInvalidText);
 //Created a function to display error message when invalid text is searched
