@@ -185,6 +185,21 @@ function getAutoComplete() {
 //   }
 // }
 
+//Added Event Listener for Displaying Error Message with Invalid Text
+userButtonEl.addEventListener("click", captureInvalidText);
+//Created a function to display error message when invalid text is searched
+function captureInvalidText(event) {
+  let userInput = event.target;
+  let invalidText = document.getElementById("invalidInput");
+  const inputVal = userInputEl.value;
+  const errorType = invalidText.getAttribute("data-error");
+  if (!inputVal || inputVal < 3) {
+    return (invalidText.innerHTML = errorType);
+  } else {
+    return console.log(helperText);
+  }
+}
+
 //Init the app
 function initApp() {
   loadGeoData();
