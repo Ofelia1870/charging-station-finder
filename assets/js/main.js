@@ -118,7 +118,7 @@ function getUserLocation() {
 }
 
 //Find a match for City && State. NOTE: ADD 2 ARGS FOR EVENT LISTENERS
-function findCityMatch(city = "Portland", state = "Oregon") {
+function findCityMatch(city = "", state = "") {
   // console.log(city);
   let cityMatch = jsonData.find((cityId) => cityId.city === city);
   let stateMatch = jsonData.find((stateId) => stateId.state === state);
@@ -135,7 +135,8 @@ function findCityMatch(city = "Portland", state = "Oregon") {
       "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     );
   } else {
-    return console.log(`Could not find ${cityMatch.city}, ${stateMatch.state}`);
+    // changed to return undefined if match is not found
+    return undefined;
   }
 }
 
@@ -193,10 +194,11 @@ function captureInvalidText(event) {
   let invalidText = document.getElementById("invalidInput");
   const inputVal = userInputEl.value;
   const errorType = invalidText.getAttribute("data-error");
-  if (!inputVal || inputVal < 3) {
+  const successType = invalidText.getAttribute("data-success");
+  if (!inputVal || inputVal.length < 3) {
     return (invalidText.innerHTML = errorType);
   } else {
-    return console.log(helperText);
+    return (invalidText.innerHTML = successType);
   }
 }
 
