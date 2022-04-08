@@ -5,6 +5,7 @@ let userInputGeoId;
 let cityCoordinates = [];
 let autoComplete = {};
 let chargeMapPoi = {};
+let chargeMapData = {};
 
 //Event Listeners
 const userInputEl = document.getElementById("autocomplete-input");
@@ -89,6 +90,18 @@ function getChargingStations(lat, lon, max = "5") {
     .then((data) => {
       chargeMapPoi = data;
       loadMap();
+
+      //Saves Charging Stations to LS
+      for (let i = 0; i < data.length; i++) {
+        chargeMapData[i] = {
+          title: data[i].AddressInfo.Title,
+          address: data[i].AddressInfo.AddressLine1,
+          phonenumber: data[i].AddressInfo.ContactTelephone1,
+          chargeLvl: data[i].Connections[0].LevelID,
+        };
+        console.log(chargeMapData[i]);
+        localStorage.setItem(lat + " " + lon, JSON.stringify(chargeMapData));
+      }
     });
 }
 
@@ -118,7 +131,7 @@ function getUserLocation() {
 }
 
 //Find a match for City && State. NOTE: ADD 2 ARGS FOR EVENT LISTENERS
-function findCityMatch(city = "", state = "") {
+function findCityMatch(city = "Portland", state = "Oregon") {
   // console.log(city);
   let cityMatch = jsonData.find((cityId) => cityId.city === city);
   let stateMatch = jsonData.find((stateId) => stateId.state === state);
