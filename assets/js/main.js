@@ -148,11 +148,13 @@ function findCityMatch(city = "Portland", state = "Oregon") {
       "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     );
   } else {
-    return console.log(`Could not find ${cityMatch.city}, ${stateMatch.state}`);
+    // changed to return undefined if match is not found
+    return undefined;
   }
 }
 
 //Find and return an array that holds city coordinates
+
 function findCityCoordinates() {
   cityCoordinates.push(jsonData[userInputGeoId].latitude);
   cityCoordinates.push(jsonData[userInputGeoId].longitude);
@@ -177,6 +179,22 @@ function getAutoComplete() {
       minLength: 3,
     });
   });
+}
+
+//Added Event Listener for Displaying Error Message with Invalid Text
+userButtonEl.addEventListener("click", captureInvalidText);
+//Created a function to display error message when invalid text is searched
+function captureInvalidText(event) {
+  let userInput = event.target;
+  let invalidText = document.getElementById("invalidInput");
+  const inputVal = userInputEl.value;
+  const errorType = invalidText.getAttribute("data-error");
+  const successType = invalidText.getAttribute("data-success");
+  if (!inputVal || inputVal.length < 3) {
+    return (invalidText.innerHTML = errorType);
+  } else {
+    return (invalidText.innerHTML = successType);
+  }
 }
 
 //Init the app
