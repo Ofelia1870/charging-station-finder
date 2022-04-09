@@ -10,7 +10,15 @@ let chargeMapData = {};
 //Event Listeners
 const userInputEl = document.getElementById("autocomplete-input");
 const userButtonEl = document.getElementById("search-btn");
+
+document.addEventListener("DOMContentLoaded", favList);
 userButtonEl.addEventListener("click", captureUserInput);
+
+//This initializes the collapsible lists in the sidenav
+function favList() {
+  let collapsEl = document.querySelectorAll(".collapsible");
+  M.Collapsible.init(collapsEl);
+}
 
 function captureUserInput(event) {
   const userInput = event.target;
@@ -107,7 +115,7 @@ function getChargingStations(lat, lon, max = "5") {
         //console.log(chargeMapData[i]);
         localStorage.setItem(lat + " " + lon, JSON.stringify(chargeMapData));
       }
-      //locationCards(lat, lon);
+      locationCards(lat, lon);
     });
 }
 
@@ -119,16 +127,17 @@ function locationCards(lat, lon) {
   let stationData = JSON.parse(localStorage.getItem(cityKey));
   console.log(stationData);
 
-  let parent = document.getElementById("cardParent");
+  sidebarList = document.querySelector(".collection");
+  //let parent = document.getElementById("cardParent");
 
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
+  while (sidebarList.firstChild) {
+    sidebarList.removeChild(sidebarList.firstChild);
   }
 
   sidebarList = document.querySelector(".collection");
 
   //this is the for-loop for the Info-cards
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 5; i++) {
     console.log(stationData[i]);
 
     let cardEl = document.createElement("li");
