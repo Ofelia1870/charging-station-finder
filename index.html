@@ -47,21 +47,13 @@
                 <!-- Changed label to show City, State (instead of Bend, Oregon) -->
                 <label class="active white-text text-darken-2" for="autocomplete-input" data-error="ERROR: Invalid City"
                   data-success="Found a City Match!" id="invalidInput">City, State</label>
-
-                <!-- Added span to display error/success message -->
-                <!-- <span
-                    class="helper-text"
-                    data-error="ERROR: Invalid City"
-                    data-success="Found a City Match!"
-                    id="invalidInput"
-                    >Helper Text</span
-                  > -->
               </div>
             </form>
           </li>
           <li id="search-btn" class="waves-effect">
             <a href="#"><i class="material-icons">search</i></a>
           </li>
+
         </ul>
 
         <ul id="slide-out" class="sidenav">
@@ -69,11 +61,16 @@
             <div class="user-view">
               <div class="background blue-grey darken-2">
               </div>
-              <a href="#"><img class="circle" src="./assets/img/e-station-nav.png"></a>
+              <a href="#"><img class="circle sidenav-close" src="./assets/img/e-station-nav.png"></a>
             </div>
           </li>
-          <li><a href="#!">Favorites <i class="material-icons">favorite</i></a></li>
-          <!-- <li><a href="#!">Second Link</a></li> -->
+          <ul class="collapsible">
+            <li>
+              <a href="#!" class="collapsible-header">Favorites <i class="material-icons">favorite</i></a>
+              <ul class="collapsible-body collection"></ul>
+            </li>
+            <!-- <li><a href="#!" class="collapsable-header">Second Link</a></li>-->
+          </ul>
           <li>
             <div class="divider"></div>
           </li>
@@ -86,7 +83,9 @@
     </nav>
   </header>
   <div class="main-content-wrapper">
-    <div class="sidebar"></div>
+    <div class="sidebar">
+      
+    </div>
     <div class="content-area" id="leaflet">
       <div id="map"></div>
     </div>

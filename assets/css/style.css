@@ -1,3 +1,7 @@
+
+.sidenav {
+  width: 500px;
+}
 #map {
   height: 90vh;
   width: 100vw;
