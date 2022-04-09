@@ -1,4 +1,4 @@
-.main-content-wrapper {
+/* .main-content-wrapper {
   display: flex;
   height: 90vh;
   width: 100%;
@@ -13,10 +13,10 @@
 .content-area {
   height: 100%;
   width: 80%;
-  /* box-shadow: 10px 0px 90px 30px rgba(107, 108, 106, 0.847); */
-}
+  /* box-shadow: 10px 0px 90px 30px rgba(107, 108, 106, 0.847);
+} */
 
 #map {
-  height: inherit;
-  width: auto;
+  height: 90vh;
+  width: 100vw;
 }
