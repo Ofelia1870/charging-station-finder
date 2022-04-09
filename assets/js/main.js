@@ -53,14 +53,13 @@ function loadMap() {
 			.bindPopup(
 				`<div class="row">
           <div class="col 12">
-            <div class="card">
+            <div class="card z-depth-1">
               <div class="card-image">
                 <img src="./assets/img/e-station-plug.jpg">
               </div>
               <div class="card-content">
-                <p><b>Address Info:</b> ${chargeMapPoi[i].AddressInfo.Title}
-                I am convenient because I require little markup to use effectively.</p>
-                </br><b>Data Provider:</b> <a href='https://${chargeMapPoi[i].DataProvider.Title}'>${chargeMapPoi[i].DataProvider.Title}</a>
+                <b>Address Info:</b> ${chargeMapPoi[i].AddressInfo.Title}
+                </br></br><b>Data Provider:</b> <a href='https://${chargeMapPoi[i].DataProvider.Title}'>${chargeMapPoi[i].DataProvider.Title}</a>
               </div>
               <div class="card-action">
               <a href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a>
@@ -77,13 +76,15 @@ function loadMap() {
 		console.log(chargeMapPoi[i].AddressInfo.Latitude);
 	}
 	cityCoordinates = [];
-	setTimeout(dropPinSelect, 2000);
+	dropPinSelect();
 }
 
 function dropPinSelect() {
-	const dropPinArea = document.getElementsByClassName("leaflet-marker-pane");
+	// const dropPinArea = document.getElementsByClassName("leaflet-marker-pane");
+	const dropPinArea = document.getElementsByClassName("leaflet-marker-icon");
 	dropPinArea.addEventListener("click", (event) => {
-		console.log(event.target);
+		dropPinEl = event.target;
+		console.log(dropPinEl);
 	});
 }
 
