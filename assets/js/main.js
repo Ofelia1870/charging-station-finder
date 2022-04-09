@@ -104,12 +104,79 @@ function getChargingStations(lat, lon, max = "5") {
           phonenumber: data[i].AddressInfo.ContactTelephone1,
           chargeLvl: data[i].Connections[0].LevelID,
         };
-        console.log(chargeMapData[i]);
+        //console.log(chargeMapData[i]);
         localStorage.setItem(lat + " " + lon, JSON.stringify(chargeMapData));
       }
+      //locationCards(lat, lon);
     });
 }
 
+//This will clear the current list of Info-cards in the side-bar,
+//and re-fill it with new Infocards based on the new coordinates
+function locationCards(lat, lon) {
+  let cityKey = lat + " " + lon;
+
+  let stationData = JSON.parse(localStorage.getItem(cityKey));
+  console.log(stationData);
+
+  let parent = document.getElementById("cardParent");
+
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+
+  sidebarList = document.querySelector(".collection");
+
+  //this is the for-loop for the Info-cards
+  for (let i = 0; i < 20; i++) {
+    console.log(stationData[i]);
+
+    let cardEl = document.createElement("li");
+    let navIconEl = document.createElement("i");
+    let favIconEl = document.createElement("i");
+    let titleEl = document.createElement("span");
+    let paraEl = document.createElement("p");
+    let paraEl2 = document.createElement("p");
+    let aEl = document.createElement("a");
+
+    let nullEl = document.createElement("p");
+    nullEl.textContent = "Not Available";
+
+    cardEl.classList.add(
+      "collection-item",
+      "avatar",
+      "grey",
+      "darken-3",
+      "grey-text",
+      "text-lighten-5"
+    );
+    sidebarList.append(cardEl);
+
+    navIconEl.classList.add("#7cb342", "material-icons", "circle");
+    navIconEl.style.backgroundColor = "#7cb342";
+    navIconEl.textContent = "navigation";
+    cardEl.append(navIconEl);
+
+    titleEl.classList.add("title");
+    titleEl.textContent = stationData[i].title;
+    cardEl.append(titleEl);
+
+    paraEl.textContent = stationData[i].phonenumber;
+    cardEl.append(paraEl);
+
+    paraEl2.textContent = "Charge Level: " + stationData[i].chargeLvl;
+    cardEl.append(paraEl2);
+
+    aEl.href = "#!";
+    aEl.classList.add("secondary-content");
+    cardEl.append(aEl);
+
+    favIconEl.classList.add("material-icons");
+    favIconEl.style.color = "#7cb342";
+    favIconEl.textContent = "grade";
+    aEl.append(favIconEl);
+  }
+}
 //Get user location on initial page load
 function getUserLocation() {
   const geoLocation = fetch("https://ipapi.co/json")
@@ -176,21 +243,20 @@ function findCityCoordinates() {
 }
 
 function getAutoComplete() {
-  
-	document.addEventListener("DOMContentLoaded", function () {
-		const inputField = document.querySelectorAll(".autocomplete");
-		M.Autocomplete.init(inputField, {
-			data: autoComplete,
-			limit: 5,
-			minLength: 3,
-		});
-	});
+  document.addEventListener("DOMContentLoaded", function () {
+    const inputField = document.querySelectorAll(".autocomplete");
+    M.Autocomplete.init(inputField, {
+      data: autoComplete,
+      limit: 5,
+      minLength: 3,
+    });
+  });
 
-	document.addEventListener("DOMContentLoaded", function () {
-		const sideNavEl = document.querySelectorAll(".sidenav");
-		const sideNavInit = M.Sidenav.init(sideNavEl, { edge: "right" });
-		const instanceEl = M.Sidenav.getInstance(sideNavInit);
-	});
+  document.addEventListener("DOMContentLoaded", function () {
+    const sideNavEl = document.querySelectorAll(".sidenav");
+    const sideNavInit = M.Sidenav.init(sideNavEl, { edge: "right" });
+    const instanceEl = M.Sidenav.getInstance(sideNavInit);
+  });
 }
 
 //Added Event Listener for Displaying Error Message with Invalid Text
