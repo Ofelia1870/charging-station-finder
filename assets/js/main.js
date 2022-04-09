@@ -188,58 +188,24 @@ function getAutoComplete() {
 
 //Added Event Listener for Displaying Error Message with Invalid Text
 userButtonEl.addEventListener("click", captureInvalidText);
-// const userInput = evt.target;
-//Created a function to display error message when invalid text is searched
-// function captureInvalidText(event) {
-//   const userInput = event.target;
-//   const invalidText = document.getElementById("invalidInput");
-//   const inputVal = userInputEl.value;
-//   const errorType = invalidText.getAttribute("data-error");
-//   const successType = invalidText.getAttribute("data-success");
-//   if (!inputVal || inputVal.length < 3) {
-//     return (invalidText.innerHTML = errorType);
-//   } else {
-//     return (invalidText.innerHTML = successType);
-//   }
-// }
 
-// , (invalidText.style.display = "none")
 function captureInvalidText(event) {
   let userButtonEl = document.getElementById("search-btn");
   userButtonEl = event.target;
-  const invalidText = document.getElementById("invalidInput");
+  let invalidText = document.getElementById("invalidInput");
   const inputVal = userInputEl.value;
-  const errorType = invalidText.getAttribute("data-error");
+  let errorType = invalidText.getAttribute("data-error");
   const successType = invalidText.getAttribute("data-success");
   if (!inputVal || inputVal.length < 3) {
-    return (invalidText.innerHTML = errorType);
+    invalidText.innerHTML = errorType;
   } else {
-    return (invalidText.innerHTML = successType);
+    invalidText.innerHTML = successType;
   }
+  // ADDED set timeout function to get text to disappear after 3 sec
+  setTimeout(function () {
+    invalidText.innerHTML = "";
+  }, 3000);
 }
-
-// setTimeout(captureInvalidText(x) {
-//   const userInput = x.target;
-
-// }, 2000);
-// setTimeout(() => {
-//   const invalidText = document.getElementById("invalidInput");
-//   const inputVal = userInputEl.value;
-//   const errorType = invalidText.getAttribute("data-error");
-//   if (!inputVal) {
-//     return (invalidText.style.display = "none");
-//   }
-// }, 2000);
-
-// setTimeout(captureInvalidText(), 2000);
-
-// userButtonEl.addEventListener('click', setTimeout);
-//  function setTimeout(event) {
-//   let userInput = event.target;
-//   let invalidText = document.getElementById("invalidInput");
-//   const errorType = invalidText.getAttribute("data-error");
-//   errorType.style.display = "none";
-// }, 2000)
 
 //Init the app
 function initApp() {
