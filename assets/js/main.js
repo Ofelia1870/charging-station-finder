@@ -111,8 +111,10 @@ function getChargingStations(lat, lon, max = "5") {
           address: data[i].AddressInfo.AddressLine1,
           phonenumber: data[i].AddressInfo.ContactTelephone1,
           chargeLvl: data[i].Connections[0].LevelID,
+          latitude: data[i].AddressInfo.Latitude,
+          longitude: data[i].AddressInfo.Longitude,
         };
-        //console.log(chargeMapData[i]);
+        console.log(chargeMapData[i]);
         localStorage.setItem(lat + " " + lon, JSON.stringify(chargeMapData));
       }
       locationCards(lat, lon);
@@ -181,10 +183,22 @@ function locationCards(lat, lon) {
     cardEl.append(aEl);
 
     favIconEl.classList.add("material-icons");
+    favIconEl.setAttribute("onclick", "favoritePoiItem(event)");
     favIconEl.style.color = "#7cb342";
     favIconEl.textContent = "grade";
     aEl.append(favIconEl);
   }
+
+  //favBtnEl = document.querySelectorAll("favoriteBtn");
+  //favBtnEl.addEventListener("click", favoriteLoc);
+}
+
+//favBtnEl.addEventListener("click", favoriteLoc);
+
+function favoritePoiItem(event) {
+  let listItem = document.querySelector(".collection-item");
+
+  console.log(listItem.textContent);
 }
 //Get user location on initial page load
 function getUserLocation() {
