@@ -74,7 +74,7 @@ function loadMap() {
               <a href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a>
               </div>
               <div class="card-action">
-                <a id="poi" data-poi-id="${i}" href="#">Save</a>
+                <a id="poi" data-poi-id="${i}" href="#" onclick="saveCard()">Save</a>
               </div>
             </div>
           </div>
@@ -85,25 +85,15 @@ function loadMap() {
 		console.log(chargeMapPoi[i].AddressInfo.Latitude);
 	}
 	cityCoordinates = [];
-	dropPinSelect();
 }
 
-function dropPinSelect() {
-	const dropPinArea = document.getElementsByClassName("leaflet-marker-pane");
-	const nodeEl = dropPinArea[0];
-	nodeElEvent = nodeEl.addEventListener("click", () => {
-		const showCard = document.getElementById("poi");
-		console.log(showCard);
-		console.log("this");
-		return showCard.addEventListener("click", console.log("event!"));
+function saveCard() {
+	const showCard = document.getElementById("poi");
+	showCard.addEventListener("click", (event) => {
+		event.preventDefault();
+		const saveBtn = event.target;
+		console.log(saveBtn);
 	});
-	if (nodeElEvent) {
-		console.log("event!!!");
-		nodeElEvent.addEventListener("click", (event) => {
-			event.preventDefault();
-			saveEl = event.target;
-		});
-	}
 }
 
 //pre-load city coordinates
