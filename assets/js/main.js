@@ -214,21 +214,6 @@ function getAutoComplete() {
 		const sideNavInit = M.Sidenav.init(sideNavEl, { edge: "right" });
 		const instanceEl = M.Sidenav.getInstance(sideNavInit);
 	});
-
-	var slider = document.getElementById("slider");
-	noUiSlider.create(slider, {
-		start: [5, 100],
-		connect: true,
-		step: 5,
-		orientation: "horizontal", // 'horizontal' or 'vertical'
-		range: {
-			min: 5,
-			max: 100,
-		},
-		// format: wNumb({
-		// 	decimals: 0,
-		// }),
-	});
 }
 
 //Added Event Listener for Displaying Error Message with Invalid Text
