@@ -21,7 +21,6 @@ function captureUserInput(event) {
 		const inputMatch = inputVal.split(",");
 		console.log(inputMatch);
 		findCityMatch(inputMatch[0], inputMatch[1]);
-		// initApp();
 	}
 }
 
@@ -52,15 +51,40 @@ function loadMap() {
 			chargeMapPoi[i].AddressInfo.Longitude,
 		])
 			.bindPopup(
-				`<b>Address Info:</b> ${chargeMapPoi[i].AddressInfo.Title} <a href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a> 
-        </br><b>Chargers Available:</b> ${chargeMapPoi[i].Connections.length} 
-        </br> </br><b>Data Provider:</b> <a href='https://${chargeMapPoi[i].DataProvider.Title}'>${chargeMapPoi[i].DataProvider.Title}</a> 
-        `
+				`<div class="row">
+          <div class="col 12">
+            <div class="card">
+              <div class="card-image">
+                <img src="./assets/img/e-station-plug.jpg">
+              </div>
+              <div class="card-content">
+                <p><b>Address Info:</b> ${chargeMapPoi[i].AddressInfo.Title}
+                I am convenient because I require little markup to use effectively.</p>
+                </br><b>Data Provider:</b> <a href='https://${chargeMapPoi[i].DataProvider.Title}'>${chargeMapPoi[i].DataProvider.Title}</a>
+              </div>
+              <div class="card-action">
+              <a href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a>
+              </div>
+              <div class="card-action">
+                <a id="poi" data-poi-id="${i}" href="#">Save</a>
+              </div>
+            </div>
+          </div>
+      </div>`,
+				{ closeButton: false }
 			)
 			.addTo(map);
 		console.log(chargeMapPoi[i].AddressInfo.Latitude);
 	}
 	cityCoordinates = [];
+	setTimeout(dropPinSelect, 2000);
+}
+
+function dropPinSelect() {
+	const dropPinArea = document.getElementsByClassName("leaflet-marker-pane");
+	dropPinArea.addEventListener("click", (event) => {
+		console.log(event.target);
+	});
 }
 
 //pre-load city coordinates
@@ -189,6 +213,21 @@ function getAutoComplete() {
 		const sideNavEl = document.querySelectorAll(".sidenav");
 		const sideNavInit = M.Sidenav.init(sideNavEl, { edge: "right" });
 		const instanceEl = M.Sidenav.getInstance(sideNavInit);
+	});
+
+	var slider = document.getElementById("slider");
+	noUiSlider.create(slider, {
+		start: [5, 100],
+		connect: true,
+		step: 5,
+		orientation: "horizontal", // 'horizontal' or 'vertical'
+		range: {
+			min: 5,
+			max: 100,
+		},
+		// format: wNumb({
+		// 	decimals: 0,
+		// }),
 	});
 }
 
