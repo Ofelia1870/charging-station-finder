@@ -187,7 +187,7 @@ function getAutoComplete() {
 
 	document.addEventListener("DOMContentLoaded", function () {
 		const sideNavEl = document.querySelectorAll(".sidenav");
-		const sideNavInit = M.Sidenav.init(sideNavEl);
+		const sideNavInit = M.Sidenav.init(sideNavEl, { edge: "right" });
 		const instanceEl = M.Sidenav.getInstance(sideNavInit);
 	});
 }
