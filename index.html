@@ -11,17 +11,11 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.css"
-    integrity="sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://kit.fontawesome.com/62b4bdd09b.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"
-    integrity="sha512-T5Bneq9hePRO8JR0S/0lQ7gdW+ceLThvC80UjwkMRz+8q+4DARVZ4dqKoyENC7FcYresjfJ6ubaOgIE35irf4w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Electric Vehicle Charging Station Finder</title>
 </head>
@@ -66,7 +60,7 @@
           </li>
           <ul class="collapsible">
             <li>
-              <a href="#!" class="collapsible-header">Favorites <i class="material-icons">favorite</i></a>
+              <a href="#!" class="collapsible-header">Nearby: <i class="material-icons">map</i></a>
               <ul class="collapsible-body collection"></ul>
             </li>
             <!-- <li><a href="#!" class="collapsable-header">Second Link</a></li>-->
@@ -74,7 +68,8 @@
           <li>
             <div class="divider"></div>
           </li>
-          <li><a class="subheader">Saved items:</a></li>
+          <li><a href="#!" class="collapsible-header">Favorite: <i class="material-icons">favorite</i></a>
+          </li>
           <li><a class="waves-effect" href="#!">First Item</a></li>
           <li><a class="waves-effect" href="#!">First Item</a></li>
 
@@ -84,7 +79,7 @@
   </header>
   <div class="main-content-wrapper">
     <div class="sidebar">
-      
+
     </div>
     <div class="content-area" id="leaflet">
       <div id="map"></div>
