@@ -188,7 +188,7 @@ function getAutoComplete() {
 
 //Added Event Listener for Displaying Error Message with Invalid Text
 userButtonEl.addEventListener("click", captureInvalidText);
-
+// const userInput = evt.target;
 //Created a function to display error message when invalid text is searched
 // function captureInvalidText(event) {
 //   const userInput = event.target;
@@ -202,8 +202,11 @@ userButtonEl.addEventListener("click", captureInvalidText);
 //     return (invalidText.innerHTML = successType);
 //   }
 // }
+
+// , (invalidText.style.display = "none")
 function captureInvalidText(event) {
-  const userInput = event.target;
+  let userButtonEl = document.getElementById("search-btn");
+  userButtonEl = event.target;
   const invalidText = document.getElementById("invalidInput");
   const inputVal = userInputEl.value;
   const errorType = invalidText.getAttribute("data-error");
@@ -219,14 +222,14 @@ function captureInvalidText(event) {
 //   const userInput = x.target;
 
 // }, 2000);
-setTimeout(() => {
-  const invalidText = document.getElementById("invalidInput");
-  const inputVal = userInputEl.value;
-  const errorType = invalidText.getAttribute("data-error");
-  if (captureInvalidText(errorType)) {
-    return (invalidText.innerHTML = "");
-  }
-}, 2000);
+// setTimeout(() => {
+//   const invalidText = document.getElementById("invalidInput");
+//   const inputVal = userInputEl.value;
+//   const errorType = invalidText.getAttribute("data-error");
+//   if (!inputVal) {
+//     return (invalidText.style.display = "none");
+//   }
+// }, 2000);
 
 // setTimeout(captureInvalidText(), 2000);
 
