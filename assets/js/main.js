@@ -21,54 +21,79 @@ function favList() {
 }
 
 function captureUserInput(event) {
-  const userInput = event.target;
-  const inputVal = userInputEl.value;
-  if (!inputVal || inputVal < 3) {
-    return;
-  } else {
-    const inputMatch = inputVal.split(",");
-    console.log(inputMatch);
-    findCityMatch(inputMatch[0], inputMatch[1]);
-    // initApp();
-  }
+	const userInput = event.target;
+	const inputVal = userInputEl.value;
+	if (!inputVal || inputVal < 3) {
+		return;
+	} else {
+		const inputMatch = inputVal.split(",");
+		console.log(inputMatch);
+		findCityMatch(inputMatch[0], inputMatch[1]);
+	}
 }
 
 function loadMap() {
-  const mapEl = document.getElementById("map");
-  mapEl.removeAttribute("id");
-  const mapContainer = document.getElementById("leaflet");
-  mapDiv = document.createElement("div");
-  mapDiv.setAttribute("id", "map");
-  mapContainer.appendChild(mapDiv);
+	const mapEl = document.getElementById("map");
+	mapEl.removeAttribute("id");
+	const mapContainer = document.getElementById("leaflet");
+	mapDiv = document.createElement("div");
+	mapDiv.setAttribute("id", "map");
+	mapContainer.appendChild(mapDiv);
 
-  const lat = cityCoordinates[0];
-  const lon = cityCoordinates[1];
+	const lat = cityCoordinates[0];
+	const lon = cityCoordinates[1];
 
-  let map = L.map("map").setView([lat, lon], 15);
+	let map = L.map("map").setView([lat, lon], 15);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-  }).addTo(map);
+	L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		attribution:
+			'Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+	}).addTo(map);
 
-  // show the scale bar on the lower left corner
-  L.control.scale({ imperial: true, metric: true }).addTo(map);
+	// show the scale bar on the lower left corner
+	L.control.scale({ imperial: true, metric: true }).addTo(map);
 
-  for (i in chargeMapPoi) {
-    L.marker([
-      chargeMapPoi[i].AddressInfo.Latitude,
-      chargeMapPoi[i].AddressInfo.Longitude,
-    ])
-      .bindPopup(
-        `<b>Address Info:</b> ${chargeMapPoi[i].AddressInfo.Title} <a href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a> 
-        </br><b>Chargers Available:</b> ${chargeMapPoi[i].Connections.length} 
-        </br> </br><b>Data Provider:</b> <a href='https://${chargeMapPoi[i].DataProvider.Title}'>${chargeMapPoi[i].DataProvider.Title}</a> 
-        `
-      )
-      .addTo(map);
-    console.log(chargeMapPoi[i].AddressInfo.Latitude);
-  }
-  cityCoordinates = [];
+	for (i in chargeMapPoi) {
+		L.marker([
+			chargeMapPoi[i].AddressInfo.Latitude,
+			chargeMapPoi[i].AddressInfo.Longitude,
+		])
+			.bindPopup(
+				`<div class="row">
+          <div class="col 12">
+            <div class="card z-depth-1">
+              <div class="card-image">
+                <img src="./assets/img/e-station-plug.jpg">
+              </div>
+              <div class="card-content">
+                <b>Address Info:</b> ${chargeMapPoi[i].AddressInfo.Title}
+                </br></br><b>Data Provider:</b> <a href='https://${chargeMapPoi[i].DataProvider.Title}'>${chargeMapPoi[i].DataProvider.Title}</a>
+              </div>
+              <div class="card-action">
+              <a href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a>
+              </div>
+              <div class="card-action">
+                <a id="poi" data-poi-id="${i}" href="#">Save</a>
+              </div>
+            </div>
+          </div>
+      </div>`,
+				{ closeButton: false }
+			)
+			.addTo(map);
+		console.log(chargeMapPoi[i].AddressInfo.Latitude);
+	}
+	cityCoordinates = [];
+	dropPinSelect();
+}
+
+function dropPinSelect() {
+	// const dropPinArea = document.getElementsByClassName("leaflet-marker-pane");
+	const dropPinArea = document.getElementsByClassName("leaflet-marker-icon");
+	dropPinArea.addEventListener("click", (event) => {
+		dropPinEl = event.target;
+		console.log(dropPinEl);
+	});
 }
 
 //pre-load city coordinates
