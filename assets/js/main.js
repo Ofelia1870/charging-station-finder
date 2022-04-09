@@ -176,14 +176,21 @@ function findCityCoordinates() {
 }
 
 function getAutoComplete() {
-  document.addEventListener("DOMContentLoaded", function () {
-    const inputField = document.querySelectorAll(".autocomplete");
-    M.Autocomplete.init(inputField, {
-      data: autoComplete,
-      limit: 5,
-      minLength: 3,
-    });
-  });
+  
+	document.addEventListener("DOMContentLoaded", function () {
+		const inputField = document.querySelectorAll(".autocomplete");
+		M.Autocomplete.init(inputField, {
+			data: autoComplete,
+			limit: 5,
+			minLength: 3,
+		});
+	});
+
+	document.addEventListener("DOMContentLoaded", function () {
+		const sideNavEl = document.querySelectorAll(".sidenav");
+		const sideNavInit = M.Sidenav.init(sideNavEl, { edge: "right" });
+		const instanceEl = M.Sidenav.getInstance(sideNavInit);
+	});
 }
 
 //Added Event Listener for Displaying Error Message with Invalid Text

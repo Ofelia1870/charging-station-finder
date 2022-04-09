@@ -24,9 +24,12 @@
   <header>
     <nav>
       <div class="nav-wrapper light-green darken-1 z-depth-3">
-        <a href="index.html" class="brand-logo center waves-effect hide-on-med-and-down">Locator <i
+        <a href="index.html" class="brand-logo left waves-effect hide-on-med-and-down">Locator <i
             class="material-icons large" style="font-size: 50px;">ev_station</i></a>
-        <ul class="left">
+        <div data-target="slide-out" class="sidenav-trigger right">
+          <a href="#" class="waves-effect"><i class="material-icons ">menu</i></a>
+        </div>
+        <ul class="right">
           <li>
             <form>
               <div class="input-field">
@@ -41,9 +44,27 @@
           <li id="search-btn" class="waves-effect">
             <a href="#"><i class="material-icons">search</i></a>
           </li>
-          <li class="waves-effect">
-              <a href="#"><i class="material-icons">menu</i></a>
+
+        </ul>
+
+        <ul id="slide-out" class="sidenav">
+          <li>
+            <div class="user-view">
+              <div class="background blue-grey darken-2">
+              </div>
+              <a href="#"><img class="circle" src="./assets/img/e-station-nav.png"></a>
+            </div>
           </li>
+          <li><a href="#!">Favorites <i class="material-icons">favorite</i></a></li>
+          <!-- <li><a href="#!">Second Link</a></li> -->
+          <li>
+            <div class="divider"></div>
+
+          </li>
+          <li><a class="subheader">Saved items:</a></li>
+          <li><a class="waves-effect" href="#!">First Item</a></li>
+          <li><a class="waves-effect" href="#!">First Item</a></li>
+
         </ul>
       </div>
     </nav>
