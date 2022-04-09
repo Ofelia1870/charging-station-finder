@@ -52,14 +52,18 @@
             <div class="user-view">
               <div class="background blue-grey darken-2">
               </div>
-              <a href="#"><img class="circle" src="./assets/img/e-station-nav.png"></a>
+              <a href="#"><img class="circle sidenav-close" src="./assets/img/e-station-nav.png"></a>
             </div>
           </li>
-          <li><a href="#!">Favorites <i class="material-icons">favorite</i></a></li>
-          <!-- <li><a href="#!">Second Link</a></li> -->
+          <ul class="collapsible">
+            <li>
+              <a href="#!" class="collapsible-header">Favorites <i class="material-icons">favorite</i></a>
+              <ul class="collapsible-body collection"></ul>
+            </li>
+            <!-- <li><a href="#!" class="collapsable-header">Second Link</a></li>-->
+          </ul>
           <li>
             <div class="divider"></div>
-
           </li>
           <li><a class="subheader">Saved items:</a></li>
           <li><a class="waves-effect" href="#!">First Item</a></li>
@@ -70,7 +74,9 @@
     </nav>
   </header>
   <div class="main-content-wrapper">
-    <div class="sidebar"></div>
+    <div class="sidebar">
+      
+    </div>
     <div class="content-area" id="leaflet">
       <div id="map"></div>
     </div>
