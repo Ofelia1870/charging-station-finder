@@ -1,8 +1,24 @@
-
 .sidenav {
   width: 500px;
 }
 #map {
   height: 90vh;
   width: 100vw;
+}
+
+/* Changed colors for nav and save links to match website colors and changed hoverable color */
+.save-poi {
+  color: #7cb342 !important;
+}
+
+.navigate-btn {
+  color: #7cb342 !important;
+}
+
+.save-poi:hover {
+  color: wheat !important;
+}
+
+.navigate-btn:hover {
+  color: wheat !important;
 }
