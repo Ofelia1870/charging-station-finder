@@ -28,7 +28,6 @@ function captureUserInput(event) {
 		return;
 	} else {
 		const inputMatch = inputVal.split(",");
-		console.log(inputMatch);
 		findCityMatch(inputMatch[0], inputMatch[1]);
 	}
 }
@@ -59,6 +58,7 @@ function loadMap() {
 			chargeMapPoi[i].AddressInfo.Latitude,
 			chargeMapPoi[i].AddressInfo.Longitude,
 		])
+			// Added class="sav-poi" and class="navigate-btn to be able to change colors in css"
 			.bindPopup(
 				`<div class="row">
           <div class="col 12">
@@ -71,10 +71,10 @@ function loadMap() {
                 </br></br><b>Provided by:</b> <a href='https://${chargeMapPoi[i].DataProvider.Title}'>${chargeMapPoi[i].DataProvider.Title}</a>
               </div>
               <div class="card-action">
-              <a href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a>
+              <a class="navigate-btn" href='https://www.google.com/maps?q=${chargeMapPoi[i].AddressInfo.Latitude},${chargeMapPoi[i].AddressInfo.Longitude}'>Navigate</a>
               </div>
               <div class="card-action">
-                <a id="poi" data-poi-id="${i}" href="#" onclick="saveCard()">Save</a>
+                <a id="poi" class="save-poi" data-poi-id="${i}" href="#" onclick="saveCard()">Save</a>
               </div>
             </div>
           </div>
@@ -82,7 +82,6 @@ function loadMap() {
 				{ closeButton: false }
 			)
 			.addTo(map);
-		console.log(chargeMapPoi[i].AddressInfo.Latitude);
 	}
 	cityCoordinates = [];
 }
@@ -131,7 +130,6 @@ function loadGeoData() {
 			return response.json();
 		})
 		.then((data) => {
-			console.log(data);
 			for (let i = 0; i < data.length; i++) {
 				autoComplete[`${data[i].city}, ${data[i].state}`] = null;
 			}
@@ -142,13 +140,11 @@ function loadGeoData() {
 
 //Open Charge Map Calls
 function getChargingStations(lat, lon, max = "5") {
-	console.log(lat, lon);
 	let poiCallUrl = "https://api.openchargemap.io/v3/poi?key=mykey&output=json&";
 	let maxResults = "maxresults=" + max + "&";
 	let latitude = "latitude=" + lat.toString() + "&";
 	let longitude = "longitude=" + lon.toString();
 	let requiredUrl = poiCallUrl + maxResults + latitude + longitude;
-	console.log(requiredUrl);
 	fetch(requiredUrl)
 		.then((response) => {
 			return response.json();
@@ -162,10 +158,8 @@ function getChargingStations(lat, lon, max = "5") {
 				chargeMapData[i] = {
 					title: data[i].AddressInfo.Title,
 					address: data[i].AddressInfo.AddressLine1,
-					// phonenumber: data[i].AddressInfo.ContactTelephone1,
-					// chargeLvl: data[i].Connections[0].LevelID,
+					phonenumber: data[i].AddressInfo.ContactTelephone1,
 				};
-				//console.log(chargeMapData[i]);
 				localStorage.setItem(lat + " " + lon, JSON.stringify(chargeMapData));
 			}
 			locationCards(lat, lon);
@@ -178,7 +172,6 @@ function locationCards(lat, lon) {
 	let cityKey = lat + " " + lon;
 
 	let stationData = JSON.parse(localStorage.getItem(cityKey));
-	console.log(stationData);
 
 	sidebarList = document.querySelector(".collection");
 	//let parent = document.getElementById("cardParent");
@@ -191,8 +184,6 @@ function locationCards(lat, lon) {
 
 	//this is the for-loop for the Info-cards
 	for (let i = 0; i < 5; i++) {
-		console.log(stationData[i]);
-
 		let cardEl = document.createElement("li");
 		let navIconEl = document.createElement("i");
 		let favIconEl = document.createElement("i");
@@ -240,7 +231,7 @@ function locationCards(lat, lon) {
 	}
 	stationData = JSON.parse(localStorage.getItem("favorite"));
 	if (stationData) {
-		for (let i = 0; i < 4; i++) {
+		for (let i = 0; i < stationData.length; i++) {
 			sidebarList = document.getElementById("saved");
 
 			let cardEl = document.createElement("li");
@@ -268,7 +259,6 @@ function locationCards(lat, lon) {
 			titleEl.classList.add("title");
 			titleEl.textContent = stationData[i].title;
 			cardEl.append(titleEl);
-			console.log(stationData[i].title);
 		}
 	}
 }
@@ -284,13 +274,6 @@ function getUserLocation() {
 		})
 		.then((data) => {
 			findCityMatch(data.city);
-
-			console.log(
-				"Your current location is",
-				data.city,
-				"\n",
-				"*******************************"
-			);
 		})
 		.catch((error) => {
 			findCityMatch();
@@ -299,21 +282,12 @@ function getUserLocation() {
 
 //Find a match for City && State. NOTE: ADD 2 ARGS FOR EVENT LISTENERS
 function findCityMatch(city = "Portland", state = "Oregon") {
-	// console.log(city);
 	let cityMatch = jsonData.find((cityId) => cityId.city === city);
 	let stateMatch = jsonData.find((stateId) => stateId.state === state);
 
 	if (cityMatch || (cityMatch && stateMatch)) {
 		userInputGeoId = jsonData.indexOf(cityMatch);
 		findCityCoordinates();
-		return console.log(
-			"Found a match!",
-			jsonData.indexOf(cityMatch),
-			cityMatch.city,
-			// stateMatch.state,
-			"\n",
-			"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-		);
 	} else {
 		// changed to return undefined if match is not found
 		return undefined;
@@ -325,15 +299,6 @@ function findCityMatch(city = "Portland", state = "Oregon") {
 function findCityCoordinates() {
 	cityCoordinates.push(jsonData[userInputGeoId].latitude);
 	cityCoordinates.push(jsonData[userInputGeoId].longitude);
-	console.log(
-		"Your city coordinates are: \n",
-		"Latitude:",
-		cityCoordinates[0],
-		"Longitude",
-		cityCoordinates[1],
-		"\n",
-		"============================================="
-	);
 	getChargingStations(cityCoordinates[0], cityCoordinates[1], "20");
 }
 

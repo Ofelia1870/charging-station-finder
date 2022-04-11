@@ -7,10 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
+
   <script src="https://kit.fontawesome.com/62b4bdd09b.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -24,21 +29,18 @@
   <header>
     <nav>
       <div class="nav-wrapper light-green darken-1 z-depth-3">
-        <a href="index.html" class="brand-logo left waves-effect hide-on-med-and-down">Locator <i
+        <a href="index.html" class="brand-logo left waves-effect hide-on-med-and-down" id="title-font">E-Fuel Locator<i
             class="material-icons large" style="font-size: 50px;">ev_station</i></a>
         <div data-target="slide-out" class="sidenav-trigger right">
           <a href="#" class="waves-effect"><i class="material-icons ">menu</i></a>
         </div>
         <ul class="right">
           <li>
-            <!-- <input class="range-field" type="range" id="slider" min="5" max="100" /> -->
           </li>
           <li>
             <form>
               <div class="input-field">
                 <input type="text" id="autocomplete-input" class="autocomplete white-text" />
-
-                <!-- Changed label to show City, State (instead of Bend, Oregon) -->
                 <label class="active white-text text-darken-2" for="autocomplete-input" data-error="ERROR: Invalid City"
                   data-success="Found a City Match!" id="invalidInput">City, State</label>
               </div>
@@ -49,21 +51,20 @@
           </li>
 
         </ul>
-
-        <ul id="slide-out" class="sidenav">
+        <ul id="slide-out" class="sidenav z-depth-3">
           <li>
             <div class="user-view">
-              <div class="background blue-grey darken-2">
+              <div class="background">
+                <img src="assets\img\vw-ev-lineup.jpg" width="500">
               </div>
-              <a href="#"><img class="circle sidenav-close" src="./assets/img/e-station-nav.png"></a>
+              <a href="#"><img class="circle sidenav-close" src="assets\img\e-station-nav.png"></a>
             </div>
           </li>
           <ul class="collapsible">
             <li>
-              <a href="#!" class="collapsible-header">Nearby: <i class="material-icons">map</i></a>
+              <a href="#!" class="collapsible-header">Nearby: <i class="material-icons" id="map-icon">map</i></a>
               <ul class="collapsible-body collection"></ul>
             </li>
-            <!-- <li><a href="#!" class="collapsable-header">Second Link</a></li>-->
           </ul>
           <li>
             <div class="divider"></div>
@@ -73,7 +74,6 @@
               <a href="#!" class="collapsible-header">Favorite: <i class="material-icons">favorite</i></a>
               <ul id="saved" class="collapsible-body collection"></ul>
             </li>
-            <!-- <li><a href="#!" class="collapsable-header">Second Link</a></li>-->
           </ul>
         </ul>
       </div>
