@@ -1,8 +1,63 @@
-
 .sidenav {
   width: 500px;
 }
 #map {
   height: 90vh;
   width: 100vw;
+}
+
+/* Changed colors for nav and save links to match website colors and changed hoverable color */
+.save-poi {
+  color: #7cb342 !important;
+}
+
+.navigate-btn {
+  color: #7cb342 !important;
+}
+
+.save-poi:hover {
+  color: wheat !important;
+}
+
+.navigate-btn:hover {
+  color: wheat !important;
+}
+
+/* changed favorites icon color to match website colors */
+#fav-icon-color {
+  color: #7cb342;
+}
+
+/* added a hover to change star color from white to green */
+#fav-icon:hover {
+  color: #7cb342 !important;
+}
+/* centered nav icon position */
+/* added pointer */
+#nav-icon {
+  position: absolute;
+  top: 25%;
+  cursor: pointer;
+}
+
+/* changed display to show icon img of ev charging station in middle */
+.sidenav-close {
+  display: inline !important;
+}
+/* added hover to decrease icon's opacity */
+.sidenav-close:hover {
+  opacity: 0.85;
+}
+
+#map-icon {
+  color: #7cb342;
+}
+/* made text for charging station location bold */
+#charging-station-name {
+  font-weight: bold;
+}
+/* changed title font */
+#title-font {
+  font-family: "Orbitron", sans-serif;
+  font-size: 35px;
 }
