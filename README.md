@@ -1,24 +1,30 @@
-# Charging Station Finder
+# EV Charging Station Locator
 
 - View GitHub [Repo](https://github.com/Ofelia1870/charging-station-finder)
 - View [Webpage](https://ofelia1870.github.io/charging-station-finder/)
 
-## Table of Contents
-
-1. I'm here to fix bugs; give them a second chance in this crazy world...
-
-step 1 - figure out how to narrow down the city and state of the search parameter -->search parameter = US
-duplicate cities names
-
-ASSIGNMENT INSTRUCTION BELOW
-
-# Unit 07: Project 1
-
 ## Overview
 
-Welcome to Project 1! This is an important step in your full-stack journey as you will now use your newly acquired skills and knowledge to build web application from scratch. With your team, you will conceive and execute a design that solves a real-world problem by integrating data received from multiple server-side API requests.
+Original idea did not include any of the map API as we were concerned with timing, but after doing a quick research, we felt comfortable making a pivot and extended app functionality by adding a map to it. That immediately felt like a boot to UX as it greatly simplified the interaction with the app. The first challenge was to have the following data readily available: City, State, Latitude, Longitude. And rather than relying on another API, made a call to have a local file [US Cities](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json) that was slightly modified to fit our use case. The file that stores all the data that we need is only `86K` in size a compromise we were OK with considering the fact that it will be used extensively by almost all of our functions.
 
-Because you will be working collaboratively, you will learn agile development methodologies and implement feature and bug fixes using git branch workflow and pull requests.
+All of remote APIs we chose had good documentation which made the development process smooth.
+
+### List of APIs, Frameworks and Libraries used:
+
+## Frameworks:
+
+1. [Materialize](https://materializecss.com/)
+
+## APIs
+
+1. [OpenStreetMap](https://www.openstreetmap.org/) | Remote API
+2. [OpenChargeMap](https://openchargemap.org/) | Remote API
+3. [IPAPI](https://ipapi.co/api/) | Remote API
+4. [US Cities](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json) | local API
+
+## Libraries
+
+1. [leafletjs](https://leafletjs.com/)
 
 ## Key Topics
 
