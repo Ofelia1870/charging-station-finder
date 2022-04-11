@@ -186,8 +186,10 @@ function locationCards(lat, lon) {
       "text-lighten-5"
     );
     sidebarList.append(cardEl);
-
-    navIconEl.classList.add("#7cb342", "material-icons", "circle");
+    // Removed color label from class title
+    navIconEl.classList.add("material-icons", "circle");
+    // added nav icon id label
+    navIconEl.setAttribute("id", "nav-icon");
     navIconEl.style.backgroundColor = "#7cb342";
     navIconEl.textContent = "navigation";
     cardEl.append(navIconEl);

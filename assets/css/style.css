@@ -32,3 +32,12 @@
 #fav-icon:hover {
   color: #7cb342 !important;
 }
+/* centered nav icon position */
+#nav-icon {
+  position: absolute;
+  top: 25%;
+}
+
+.sidenav-close {
+  align-content: center;
+}
