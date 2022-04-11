@@ -6,7 +6,7 @@ let cityCoordinates = [];
 let autoComplete = {};
 let chargeMapPoi = {};
 let chargeMapData = {};
-let favoritePoiItem = {};
+let favoritePoiItem = [];
 
 //Event Listeners
 const userInputEl = document.getElementById("autocomplete-input");
@@ -89,11 +89,39 @@ function loadMap() {
 
 function saveCard() {
 	const showCard = document.getElementById("poi");
-	showCard.addEventListener("click", (event) => {
-		event.preventDefault();
-		const saveBtn = event.target;
-		console.log(saveBtn);
-	});
+	const elId = showCard.dataset.poiId;
+
+	if (favoritePoiItem.length < 4) {
+		favoritePoiItem.push({ title: chargeMapPoi[elId].AddressInfo.Title });
+		sidebarList = document.getElementById("saved");
+
+		let cardEl = document.createElement("li");
+		let navIconEl = document.createElement("i");
+		let titleEl = document.createElement("span");
+
+		let nullEl = document.createElement("p");
+		nullEl.textContent = "Not Available";
+
+		cardEl.classList.add(
+			"collection-item",
+			"avatar",
+			"grey",
+			"darken-3",
+			"grey-text",
+			"text-lighten-5"
+		);
+		sidebarList.append(cardEl);
+
+		navIconEl.classList.add("#7cb342", "material-icons", "circle");
+		navIconEl.style.backgroundColor = "#7cb342";
+		navIconEl.textContent = "navigation";
+		cardEl.append(navIconEl);
+
+		titleEl.classList.add("title");
+		titleEl.textContent = chargeMapPoi[elId].AddressInfo.Title;
+		cardEl.append(titleEl);
+	}
+	localStorage.setItem("favorite", JSON.stringify(favoritePoiItem));
 }
 
 //pre-load city coordinates
@@ -209,6 +237,39 @@ function locationCards(lat, lon) {
 		favIconEl.style.color = "#7cb342";
 		favIconEl.textContent = "grade";
 		aEl.append(favIconEl);
+	}
+	stationData = JSON.parse(localStorage.getItem("favorite"));
+	if (stationData) {
+		for (let i = 0; i < 4; i++) {
+			sidebarList = document.getElementById("saved");
+
+			let cardEl = document.createElement("li");
+			let navIconEl = document.createElement("i");
+			let titleEl = document.createElement("span");
+
+			let nullEl = document.createElement("p");
+			nullEl.textContent = "Not Available";
+
+			cardEl.classList.add(
+				"collection-item",
+				"avatar",
+				"grey",
+				"darken-3",
+				"grey-text",
+				"text-lighten-5"
+			);
+			sidebarList.append(cardEl);
+
+			navIconEl.classList.add("#7cb342", "material-icons", "circle");
+			navIconEl.style.backgroundColor = "#7cb342";
+			navIconEl.textContent = "navigation";
+			cardEl.append(navIconEl);
+
+			titleEl.classList.add("title");
+			titleEl.textContent = stationData[i].title;
+			cardEl.append(titleEl);
+			console.log(stationData[i].title);
+		}
 	}
 }
 //Get user location on initial page load
