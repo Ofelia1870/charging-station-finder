@@ -135,8 +135,8 @@ function getChargingStations(lat, lon, max = "5") {
         chargeMapData[i] = {
           title: data[i].AddressInfo.Title,
           address: data[i].AddressInfo.AddressLine1,
-          // phonenumber: data[i].AddressInfo.ContactTelephone1,
-          // chargeLvl: data[i].Connections[0].LevelID,
+          phonenumber: data[i].AddressInfo.ContactTelephone1,
+          //   chargeLvl: data[i].Connections[0].LevelID,
         };
         //console.log(chargeMapData[i]);
         localStorage.setItem(lat + " " + lon, JSON.stringify(chargeMapData));
@@ -181,7 +181,7 @@ function locationCards(lat, lon) {
       "collection-item",
       "avatar",
       "grey",
-      "darken-3",
+      "darken-1",
       "grey-text",
       "text-lighten-5"
     );
@@ -194,15 +194,23 @@ function locationCards(lat, lon) {
     navIconEl.textContent = "navigation";
     cardEl.append(navIconEl);
 
+    // added id for charging station name title
     titleEl.classList.add("title");
+    titleEl.setAttribute("id", "charging-station-name");
     titleEl.textContent = stationData[i].title;
     cardEl.append(titleEl);
 
-    paraEl.textContent = stationData[i].phonenumber;
+    // added different text to display if no phone number is available from API
+    paraEl.textContent = "Phone: " + stationData[i].phonenumber;
+    if (stationData[i].phonenumber === "") {
+      paraEl.textContent = "No Contact Info";
+      paraEl.style.color = "black";
+    }
+
     cardEl.append(paraEl);
 
-    paraEl2.textContent = "Charge Level: " + stationData[i].chargeLvl;
-    cardEl.append(paraEl2);
+    // paraEl2.textContent = "Charge Level: " + stationData[i].chargeLvl;
+    // cardEl.append(paraEl2);
 
     aEl.href = "#!";
     aEl.classList.add("secondary-content");

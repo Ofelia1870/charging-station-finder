@@ -33,10 +33,13 @@
   color: #7cb342 !important;
 }
 /* centered nav icon position */
+/* added pointer */
 #nav-icon {
   position: absolute;
   top: 25%;
+  cursor: pointer;
 }
+
 /* changed display to show icon img of ev charging station in middle */
 .sidenav-close {
   display: inline !important;
@@ -48,4 +51,8 @@
 
 #map-icon {
   color: #7cb342;
+}
+
+#charging-station-name {
+  font-weight: bold;
 }
