@@ -37,7 +37,15 @@
   position: absolute;
   top: 25%;
 }
-
+/* changed display to show icon img of ev charging station in middle */
 .sidenav-close {
-  align-content: center;
+  display: inline !important;
+}
+/* added hover to decrease icon's opacity */
+.sidenav-close:hover {
+  opacity: 0.85;
+}
+
+#map-icon {
+  color: #7cb342;
 }
