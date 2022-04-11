@@ -6,7 +6,7 @@ let cityCoordinates = [];
 let autoComplete = {};
 let chargeMapPoi = {};
 let chargeMapData = {};
-//let favArray = [];
+
 
 
 //Event Listeners
