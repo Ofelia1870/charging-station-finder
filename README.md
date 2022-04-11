@@ -20,7 +20,7 @@ AS AN owner of an electric vehicle
 I WANT to be able to view a generated list and map of nearby charging stations
 SO THAT I am able to save a desired amount of charging station locations
 GIVEN my search query is successful
-WHEN I click on a pinned chargin station location
+WHEN I click on a pinned charging station location
 THEN I am presented with a card that displays information specific to the pin selected
 WHEN I click on the menu icon
 THEN I am presented with a side nav bar that displays a Nearby and Favorites section
@@ -32,7 +32,7 @@ THEN I am able to save and view that specific card within my Favorites section
 
 # Our Contanct Info
 
-Emails:
+Emails: rkutsel@gmail.com, scarletfedora@gmail.com, ofeliasanchez30@gmail.com
 
 Git Hub Pages:
 
