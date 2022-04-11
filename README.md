@@ -5,7 +5,9 @@
 
 ## Table of Contents
 
--[Project Description]() -[User Story]() -[Our Contact Info]()
+- [Project Description](https://github.com/Ofelia1870/charging-station-finder/#project-description)
+- [User Story](https://github.com/Ofelia1870/charging-station-finder/#user-story)
+- [Our Contact Info](https://github.com/Ofelia1870/charging-station-finder/#our-contact-info)
 
 # Project Description
 
@@ -13,7 +15,7 @@ This is our team's first group project where we created a one page app that allo
 
 # User Story
 
-...
+```
 AS AN owner of an electric vehicle
 I WANT to be able to view a generated list and map of nearby charging stations
 SO THAT I am able to save a desired amount of charging station locations
@@ -26,4 +28,12 @@ WHEN I click on the Nearby section
 THEN I am presented with a dropdown list of charging station locations within my searched city
 WHEN I click on the star icon
 THEN I am able to save and view that specific card within my Favorites section
-...
+```
+
+# Our Contanct Info
+
+Emails:
+
+Git Hub Pages:
+
+Link to our Project:
