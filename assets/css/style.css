@@ -52,7 +52,12 @@
 #map-icon {
   color: #7cb342;
 }
-
+/* made text for charging station location bold */
 #charging-station-name {
   font-weight: bold;
+}
+/* changed title font */
+#title-font {
+  font-family: "Orbitron", sans-serif;
+  font-size: 35px;
 }

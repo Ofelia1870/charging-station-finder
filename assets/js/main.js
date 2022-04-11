@@ -198,13 +198,14 @@ function locationCards(lat, lon) {
     titleEl.classList.add("title");
     titleEl.setAttribute("id", "charging-station-name");
     titleEl.textContent = stationData[i].title;
+    // changed title text color to white
+    titleEl.style.color = "white";
     cardEl.append(titleEl);
 
     // added different text to display if no phone number is available from API
     paraEl.textContent = "Phone: " + stationData[i].phonenumber;
     if (stationData[i].phonenumber === "") {
-      paraEl.textContent = "No Contact Info";
-      paraEl.style.color = "black";
+      paraEl.textContent = "No Contact Info Available";
     }
 
     cardEl.append(paraEl);
