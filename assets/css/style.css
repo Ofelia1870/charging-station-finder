@@ -22,3 +22,13 @@
 .navigate-btn:hover {
   color: wheat !important;
 }
+
+/* changed favorites icon color to match website colors */
+#fav-icon-color {
+  color: #7cb342;
+}
+
+/* added a hover to change star color from white to green */
+#fav-icon:hover {
+  color: #7cb342 !important;
+}

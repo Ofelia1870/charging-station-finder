@@ -207,7 +207,9 @@ function locationCards(lat, lon) {
     cardEl.append(aEl);
 
     favIconEl.classList.add("material-icons");
-    favIconEl.style.color = "#7cb342";
+    // added id and changed default icon color to white
+    favIconEl.setAttribute("id", "fav-icon");
+    favIconEl.style.color = "#ffffff";
     favIconEl.textContent = "grade";
     aEl.append(favIconEl);
   }
