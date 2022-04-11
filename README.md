@@ -36,4 +36,4 @@ Emails:
 
 Git Hub Pages:
 
-Link to our Project:
+Link to our Project: https://github.com/Ofelia1870/charging-station-finder
