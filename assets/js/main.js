@@ -105,10 +105,11 @@ function saveCard() {
 			"collection-item",
 			"avatar",
 			"grey",
-			"darken-3",
+			"darken-1",
 			"grey-text",
 			"text-lighten-5"
 		);
+
 		sidebarList.append(cardEl);
 
 		navIconEl.classList.add("#7cb342", "material-icons", "circle");
@@ -140,7 +141,8 @@ function loadGeoData() {
 
 //Open Charge Map Calls
 function getChargingStations(lat, lon, max = "5") {
-	let poiCallUrl = "https://api.openchargemap.io/v3/poi?key=mykey&output=json&";
+	let poiCallUrl =
+		"https://api.openchargemap.io/v3/poi?key=mypubkey&output=json&";
 	let maxResults = "maxresults=" + max + "&";
 	let latitude = "latitude=" + lat.toString() + "&";
 	let longitude = "longitude=" + lon.toString();
@@ -199,33 +201,46 @@ function locationCards(lat, lon) {
 			"collection-item",
 			"avatar",
 			"grey",
-			"darken-3",
+			"darken-1",
 			"grey-text",
 			"text-lighten-5"
 		);
 		sidebarList.append(cardEl);
-
-		navIconEl.classList.add("#7cb342", "material-icons", "circle");
+		// Removed color label from class title
+		navIconEl.classList.add("material-icons", "circle");
+		// added nav icon id label
+		navIconEl.setAttribute("id", "nav-icon");
 		navIconEl.style.backgroundColor = "#7cb342";
 		navIconEl.textContent = "navigation";
 		cardEl.append(navIconEl);
 
+		// added id for charging station name title
 		titleEl.classList.add("title");
+		titleEl.setAttribute("id", "charging-station-name");
 		titleEl.textContent = stationData[i].title;
+		// changed title text color to white
+		titleEl.style.color = "white";
 		cardEl.append(titleEl);
 
-		paraEl.textContent = stationData[i].phonenumber;
+		// added different text to display if no phone number is available from API
+		paraEl.textContent = "Phone: " + stationData[i].phonenumber;
+		if (stationData[i].phonenumber === "") {
+			paraEl.textContent = "No Contact Info Available";
+		}
+
 		cardEl.append(paraEl);
 
-		paraEl2.textContent = "Charge Level: " + stationData[i].chargeLvl;
-		cardEl.append(paraEl2);
+		// paraEl2.textContent = "Charge Level: " + stationData[i].chargeLvl;
+		// cardEl.append(paraEl2);
 
 		aEl.href = "#!";
 		aEl.classList.add("secondary-content");
 		cardEl.append(aEl);
 
 		favIconEl.classList.add("material-icons");
-		favIconEl.style.color = "#7cb342";
+		// added id and changed default icon color to white
+		favIconEl.setAttribute("id", "fav-icon");
+		favIconEl.style.color = "#ffffff";
 		favIconEl.textContent = "grade";
 		aEl.append(favIconEl);
 	}
@@ -245,19 +260,26 @@ function locationCards(lat, lon) {
 				"collection-item",
 				"avatar",
 				"grey",
-				"darken-3",
+				"darken-1",
 				"grey-text",
 				"text-lighten-5"
 			);
-			sidebarList.append(cardEl);
 
-			navIconEl.classList.add("#7cb342", "material-icons", "circle");
+			sidebarList.append(cardEl);
+			// Removed color label from class title
+			navIconEl.classList.add("material-icons", "circle");
+			// added nav icon id label
+			navIconEl.setAttribute("id", "nav-icon");
 			navIconEl.style.backgroundColor = "#7cb342";
 			navIconEl.textContent = "navigation";
 			cardEl.append(navIconEl);
 
+			// added id for charging station name title
 			titleEl.classList.add("title");
+			titleEl.setAttribute("id", "charging-station-name");
 			titleEl.textContent = stationData[i].title;
+			// changed title text color to white
+			titleEl.style.color = "white";
 			cardEl.append(titleEl);
 		}
 	}
@@ -299,7 +321,7 @@ function findCityMatch(city = "Portland", state = "Oregon") {
 function findCityCoordinates() {
 	cityCoordinates.push(jsonData[userInputGeoId].latitude);
 	cityCoordinates.push(jsonData[userInputGeoId].longitude);
-	getChargingStations(cityCoordinates[0], cityCoordinates[1], "20");
+	getChargingStations(cityCoordinates[0], cityCoordinates[1], "15");
 }
 
 function getAutoComplete() {
