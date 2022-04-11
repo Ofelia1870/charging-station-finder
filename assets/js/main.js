@@ -6,13 +6,16 @@ let cityCoordinates = [];
 let autoComplete = {};
 let chargeMapPoi = {};
 let chargeMapData = {};
+//let favArray = [];
+
 
 //Event Listeners
 const userInputEl = document.getElementById("autocomplete-input");
 const userButtonEl = document.getElementById("search-btn");
 
 document.addEventListener("DOMContentLoaded", favList);
-userButtonEl.addEventListener("click", captureUserInput);
+
+userButtonEl.addEventListener("click", captureUserInput,);
 
 //This initializes the collapsible lists in the sidenav
 function favList() {
@@ -148,7 +151,10 @@ function locationCards(lat, lon) {
     let titleEl = document.createElement("span");
     let paraEl = document.createElement("p");
     let paraEl2 = document.createElement("p");
+    let paraEl3 = document.createElement("p");
     let aEl = document.createElement("a");
+
+    newId = i;
 
     let nullEl = document.createElement("p");
     nullEl.textContent = "Not Available";
@@ -172,11 +178,14 @@ function locationCards(lat, lon) {
     titleEl.textContent = stationData[i].title;
     cardEl.append(titleEl);
 
-    paraEl.textContent = stationData[i].phonenumber;
+    paraEl.textContent = stationData[i].address;
     cardEl.append(paraEl);
 
     paraEl2.textContent = "Charge Level: " + stationData[i].chargeLvl;
     cardEl.append(paraEl2);
+
+    paraEl3.textContent = stationData[i].phonenumber;
+    cardEl.append(paraEl3);
 
     aEl.href = "#!";
     aEl.classList.add("secondary-content");
@@ -184,21 +193,35 @@ function locationCards(lat, lon) {
 
     favIconEl.classList.add("material-icons");
     favIconEl.setAttribute("onclick", "favoritePoiItem(event)");
+    favIconEl.setAttribute("id", newId);
     favIconEl.style.color = "#7cb342";
     favIconEl.textContent = "grade";
     aEl.append(favIconEl);
   }
-
-  //favBtnEl = document.querySelectorAll("favoriteBtn");
-  //favBtnEl.addEventListener("click", favoriteLoc);
+  //while (sidebarList.firstChild < 5) {
+  //  sidebarList.removeChild(sidebarList.firstChild);
+ // }
 }
 
-//favBtnEl.addEventListener("click", favoriteLoc);
-
+//This function saves the elements from the sidebar list to the favorites ls
 function favoritePoiItem(event) {
-  let listItem = document.querySelector(".collection-item");
+  let x = event.target;
+  let favArray = [];
+  
+  let favId = x.id;
+  let favPoi = chargeMapData[favId];
+  
+  let favList =JSON.parse(localStorage.getItem("Favorites"))
+  console.log(favList);
 
-  console.log(listItem.textContent);
+  if (favList == null) {
+    console.log("Making a new list...")
+    favArray.push(favPoi);
+    localStorage.setItem("Favorites", JSON.stringify(favArray));
+  } else {
+    favList.push(favPoi);
+    localStorage.setItem("Favorites", JSON.stringify(favList));
+  }
 }
 //Get user location on initial page load
 function getUserLocation() {
