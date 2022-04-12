@@ -1,81 +1,64 @@
-# Charging Station Finder
+# EV Charging Station Locator
 
 - View GitHub [Repo](https://github.com/Ofelia1870/charging-station-finder)
 - View [Webpage](https://ofelia1870.github.io/charging-station-finder/)
 
 ## Table of Contents
 
-1. I'm here to fix bugs; give them a second chance in this crazy world...
+- [Project Description](https://github.com/Ofelia1870/charging-station-finder/#project-description)
+- [User Story](https://github.com/Ofelia1870/charging-station-finder/#user-story)
+- [Overview](https://github.com/Ofelia1870/charging-station-finder/#overview)
+- [List of APIs Frameworks and Libraries used:](https://github.com/Ofelia1870/charging-station-finder/#List-of-APIs-Frameworks-and-Libraries-used:)
+- [Our Contact Info](https://github.com/Ofelia1870/charging-station-finder/#our-contact-info)
 
-step 1 - figure out how to narrow down the city and state of the search parameter -->search parameter = US
-duplicate cities names
+# Project Description
 
-ASSIGNMENT INSTRUCTION BELOW
+This is our team's first group project where we created a one page app that allows a user to search for electric vehicle charging stations nearby or at a specific location/city based on the city that they input in the search bar. The page initially loads a home page with a search bar, a search icon, a menu icon, and an automatically generated map loads with pinneed charging stations near their current location (based on their IP Address). The user has the ability to click on the search bar and input a city of their choice and once they select an autocompleted city and click on the search icon, the page will load up pinned charging station locations found within their searched city. If the user clicks on the menu icon a side nav bar will pop up where the user is able to click on the section titled (Nearby) which then displays a dropdown list of all charging stations located in the city they have searched, with some extra information about each specific charging station, as well as a star icon where the user is able to save a specific charging station and add it to their favorites. Underneath the Nearby section, there is a favorites section which will include the user's favorited locations. On the map itself, the user is able to click on a specific pin where a card with information about that specific charging station is displayed; within the card, the user is able to click to save and open google maps nto navigate to the pinned location that they selected. At the bottom of the page, the user is able to click on the github icon which will redirect them to our project's repo page on github.
 
-# Unit 07: Project 1
+# User Story
 
-## Overview
+```
+AS AN owner of an electric vehicle
+I WANT to be able to view a generated list and map of nearby charging stations
+SO THAT I am able to save a desired amount of charging station locations
+GIVEN my search query is successful
+WHEN I click on a pinned charging station location
+THEN I am presented with a card that displays information specific to the pin selected
+WHEN I click on the menu icon
+THEN I am presented with a side nav bar that displays a Nearby and Favorites section
+WHEN I click on the Nearby section
+THEN I am presented with a dropdown list of charging station locations within my searched city
+WHEN I click on the star icon
+THEN I am able to save and view that specific card within my Favorites section
+```
 
-Welcome to Project 1! This is an important step in your full-stack journey as you will now use your newly acquired skills and knowledge to build web application from scratch. With your team, you will conceive and execute a design that solves a real-world problem by integrating data received from multiple server-side API requests.
+# Overview
 
-Because you will be working collaboratively, you will learn agile development methodologies and implement feature and bug fixes using git branch workflow and pull requests.
+Original idea did not include any of the map API as we were concerned with timing, but after doing a quick research, we felt comfortable making a pivot and extended app functionality by adding a map to it. That immediately felt like a boot to UX as it greatly simplified the interaction with the app. The first challenge was to have the following data readily available: City, State, Latitude, Longitude. And rather than relying on another API, made a call to have a local file [US Cities](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json) that was slightly modified to fit our use case. The file that stores all the data that we need is only `86K` in size a compromise we were OK with considering the fact that it will be used extensively by almost all of our functions.
 
-## Key Topics
+All of remote APIs we chose had good documentation which made the development process smooth.
 
-The following topics will be covered in this unit:
+# List of APIs Frameworks and Libraries used:
 
-- [Server-side APIs](https://en.wikipedia.org/wiki/Web_API)
+## Frameworks:
 
-- [Git branching workflow](https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows)
+1. [Materialize](https://materializecss.com/)
 
-- [Agile software development](https://en.wikipedia.org/wiki/Agile_software_development)
+## APIs
 
-## Learning Objectives
+1. [OpenStreetMap](https://www.openstreetmap.org/) | Remote API
+2. [OpenChargeMap](https://openchargemap.org/) | Remote API
+3. [IPAPI](https://ipapi.co/api/) | Remote API
+4. [US Cities](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json) | local API
 
-You will be employer-ready if you are able to:
+## Libraries
 
-- Speak technically about a feature you implemented in your project
+1. [leafletjs](https://leafletjs.com/)
 
-- Explain and execute git branching workflow in a collaborative project
+# Our Contanct Info
 
-- Resolve merge conflicts
+Emails: rkutsel@gmail.com, scarletfedora@gmail.com, ofeliasanchez30@gmail.com
 
-- Explain agile software development
+Git Hub Pages:
 
-- Design, build, and deploy a client-side web application using GitHub Pages
-
-- Prepare a professional presentation and repository README for your project
-
-## Homework
-
-With your team, you'll conceive and execute a design that solves a real-world problem by integrating data received from multiple server-side API requests. You will also learn about agile development methodologies to help you work collaboratively. You will implement feature and bug fixes using git branch workflow and pull requests.
-
-You will write your own user stories and acceptance criteria in GitHub Issues to help your team stay on track with the project. Using GitHub Project as a means to track the status of your project tasks will help you understand the benefits of Kanban boards.
-
-## Career Connection
-
-For more information about career services, including coding milestones, demo days, technical toolkits, workshops, and additional resources, visit the [career services website](https://careernetwork.2u.com/?utm_medium=Academics&utm_source=boot_camp/).
-
-## Heads-Up
-
-In the next unit, you'll continue to work on your group projects. You'll end the week by presenting your project to your class. Once your project is complete, you'll want to update your professional materials and add your new project to your portfolio.
-
-## Resources
-
-Here are some additional resources to help solidify the topics covered in this unit.
-
-### Full-Stack Blog Posts
-
-Check out the [Full-Stack Blog](https://coding-boot-camp.github.io/full-stack/) for additional resources, like walkthroughs, articles, and installation guides.
-
-- 📖 [API Resources](https://coding-boot-camp.github.io/full-stack/apis/api-resources)
-
-### General
-
-Refer to these resources for additional information about topics covered in this unit.
-
-- 📖 [Learn Enough Git to Be Dangerous](https://www.learnenough.com/git-tutorial/getting_started)
-
----
-
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+Link to our Project: https://github.com/Ofelia1870/charging-station-finder
