@@ -1,4 +1,4 @@
-# Charging Station Finder
+# EV Charging Station Locator
 
 - View GitHub [Repo](https://github.com/Ofelia1870/charging-station-finder)
 - View [Webpage](https://ofelia1870.github.io/charging-station-finder/)
@@ -7,6 +7,8 @@
 
 - [Project Description](https://github.com/Ofelia1870/charging-station-finder/#project-description)
 - [User Story](https://github.com/Ofelia1870/charging-station-finder/#user-story)
+- [Overview](https://github.com/Ofelia1870/charging-station-finder/#overview)
+- [List of APIs Frameworks and Libraries used:](https://github.com/Ofelia1870/charging-station-finder/#List-of-APIs-Frameworks-and-Libraries-used:)
 - [Our Contact Info](https://github.com/Ofelia1870/charging-station-finder/#our-contact-info)
 
 # Project Description
@@ -29,6 +31,29 @@ THEN I am presented with a dropdown list of charging station locations within my
 WHEN I click on the star icon
 THEN I am able to save and view that specific card within my Favorites section
 ```
+
+# Overview
+
+Original idea did not include any of the map API as we were concerned with timing, but after doing a quick research, we felt comfortable making a pivot and extended app functionality by adding a map to it. That immediately felt like a boot to UX as it greatly simplified the interaction with the app. The first challenge was to have the following data readily available: City, State, Latitude, Longitude. And rather than relying on another API, made a call to have a local file [US Cities](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json) that was slightly modified to fit our use case. The file that stores all the data that we need is only `86K` in size a compromise we were OK with considering the fact that it will be used extensively by almost all of our functions.
+
+All of remote APIs we chose had good documentation which made the development process smooth.
+
+# List of APIs Frameworks and Libraries used:
+
+## Frameworks:
+
+1. [Materialize](https://materializecss.com/)
+
+## APIs
+
+1. [OpenStreetMap](https://www.openstreetmap.org/) | Remote API
+2. [OpenChargeMap](https://openchargemap.org/) | Remote API
+3. [IPAPI](https://ipapi.co/api/) | Remote API
+4. [US Cities](https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json) | local API
+
+## Libraries
+
+1. [leafletjs](https://leafletjs.com/)
 
 # Our Contanct Info
 
